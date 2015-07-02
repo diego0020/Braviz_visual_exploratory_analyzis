@@ -1,17 +1,6 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This is just an example/guide for you to refer to when submitting manuscripts to Frontiers, it is not mandatory to use Frontiers .cls files nor frontiers.tex  %
-% This will only generate the Manuscript, the final article will be typeset by Frontiers after acceptance.                                                 %
-%                                                                                                                                                         %
-% When submitting your files, remember to upload this *tex file, the pdf generated with it, the *bib file (if bibliography is not within the *tex) and all the figures.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%% Version 3.1 Generated 2015/22/05 %%%
-%%% You will need to have the following packages installed: datetime, fmtcount, etoolbox, fcprefix, which are normally inlcuded in WinEdt. %%%
-%%% In http://www.ctan.org/ you can find the packages and how to install them, if necessary. %%%
 
 \documentclass{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
-%\documentclass{frontiersHLTH} % for Health articles
-%\documentclass{frontiersFPHY} % for Physics and Applied Mathematics and Statistics articles
+
 
 %\setcitestyle{square}
 \usepackage{url,hyperref,lineno,microtype}
@@ -24,16 +13,18 @@
 
 \def\keyFont{\fontsize{8}{11}\helveticabold }
 \def\firstAuthorLast{Sample {et~al.}} %use et al only if is more than 1 author
-\def\Authors{First Author\,$^{1,*}$, Co-Author\,$^{2}$ and Co-Author\,$^2$}
+\def\Authors{Diego Andrés Angulo\,$^{1,*}$, José Tiberio Hernández\,$^{1}$ , James Oliver and Cyril Schneider\,$^3$}
 % Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
 % If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
-\def\Address{$^{1}$Laboratory X, Institute X, Department X, Organization X, City X , State XX (only USA, Canada and Australia), Country X \\
-$^{2}$Laboratory X, Institute X, Department X, Organization X, City X , State XX (only USA, Canada and Australia), Country X  }
+\def\Address{$^{1}$ IMAGINE, Universidad de los Andes, Bogotá , Colombia \\
+$^{2}$VRAC, Iowa State University, Ames , IA, Unites States
+\\
+$^{3}$AXE Neuroscience, CHUL, Quebec , QC, Canada  }
 % The Corresponding Author should be marked with an asterisk
 % Provide the exact contact address (this time including street name and city zip code) and email of the corresponding author
-\def\corrAuthor{Corresponding Author}
-\def\corrAddress{Laboratory X, Institute X, Department X, Organization X, Street X, City X , State XX (only USA, Canada and Australia), Zip Code, X Country X}
-\def\corrEmail{email@uni.edu}
+\def\corrAuthor{Diego A. Angulo}
+\def\corrAddress{IMAGINE, Universidad de los Andes, Carrera 1 \# 18A -12 , Bogotá, Colombia}
+\def\corrEmail{da.angulo39@uniandes.edu.co}
 
 
 
@@ -42,7 +33,7 @@ $^{2}$Laboratory X, Institute X, Department X, Organization X, City X , State XX
 \onecolumn
 \firstpage{1}
 
-\title[Running Title]{Article Title} 
+\title[Braviz]{Braviz: Visual Exploratory Analysis of Brain Datasets} 
 
 \author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
@@ -73,9 +64,7 @@ $^{2}$Laboratory X, Institute X, Department X, Organization X, City X , State XX
 
 %%% Leave the Abstract empty if your article falls under any of the following categories: Editorial Book Review, Commentary, Field Grand Challenge, Opinion or specialty Grand Challenge.
 \section{}
-%As a primary goal, the abstract should render the general significance and conceptual advance of the work clearly accessible to a broad readership. References should not be cited in the abstract.
-For full guidelines regarding your manuscript please refer to \href{http://www.frontiersin.org/about/AuthorGuidelines}{Author Guidelines} \\ or \textbf{Table \ref{Tab:01}} for a summary according to article type.
-
+Brain researchers typically deal with large amounts of data from different sources and often, of different nature. This requires the use of several different software tools and makes it cumbersome and time consuming to answer simple questions. Because of this, data is not used to its fullest potential, and exploratory analysis is rarely done . This paper presents a software tool called BRAVIZ that integrates access to several data types and automates many of the cumbersome and error-prone tasks required to explore typical neuroscience data. This work focuses on integrating interactive visualization with real-time statistical analyses to facilitate exploration and discovery. BRAVIZ enables an inversion of the typical neuroscience analysis process by emphasizing images as the main organizing objects in the process rather than relying in abstract numerical indicators. This encourages researchers to notice trends and relationships, which motivate additional analyses and generally gain a fuller understanding of the phenomena represented by the data.  A case study is presented that incorporates MRI, DTI, and fMRI images together with a large amount of neuropsychological and clinical data.  The case study demonstrates how BRAVIZ enables researchers to discover new hypotheses about the relationships between structures and functions of the brain.
 
 \tiny
  \keyFont{ \section{Keywords:} Text Text Text Text Text Text Text Text } %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
@@ -278,7 +267,7 @@ Text Text Text Text Text Text  Text Text Text Text Text Text Text Text  Text Tex
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=10cm]{logo1}% This is a *.jpg file
+%\includegraphics[width=10cm]{logo1}% This is a *.jpg file
 \end{center}
  \textbf{\refstepcounter{figure}\label{fig:01} Figure \arabic{figure}.}{ Enter the caption for your figure here.  Repeat as  necessary for each of your figures }
 \end{figure}
