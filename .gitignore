@@ -15,6 +15,9 @@
 # *.eps
 # *.pdf
 
+#Main generated document
+braviz_visual_analysis.pdf
+
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
@@ -124,3 +127,4 @@ sympy-plots-for-*.tex/
 # WinEdt
 *.bak
 *.sav
+
