@@ -1,6 +1,28 @@
 
 \documentclass{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
 
+\usepackage[english]{babel}
+
+\usepackage{letltxmacro}
+
+\LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
+\makeatletter
+\DeclareRobustCommand{\selectlanguage}[1]{%
+  \@ifundefined{alias@\string#1}
+    {\ORIGselectlanguage{#1}}
+    {\begingroup\edef\x{\endgroup
+       \noexpand\ORIGselectlanguage{\@nameuse{alias@#1}}}\x}%
+}
+\newcommand{\definelanguagealias}[2]{%
+  \@namedef{alias@#1}{#2}%
+}
+\makeatother
+
+\definelanguagealias{eng}{english}
+
+\makeatletter
+\let\l@eng\l@english
+\makeatother
 
 %\setcitestyle{square}
 \usepackage{url,hyperref,lineno,microtype}
@@ -12,7 +34,7 @@
 
 
 \def\keyFont{\fontsize{8}{11}\helveticabold }
-\def\firstAuthorLast{Sample {et~al.}} %use et al only if is more than 1 author
+\def\firstAuthorLast{Diego Angulo {et~al.}} %use et al only if is more than 1 author
 \def\Authors{Diego Andrés Angulo\,$^{1,*}$, José Tiberio Hernández\,$^{1}$ , James Oliver and Cyril Schneider\,$^3$}
 % Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
 % If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
@@ -67,195 +89,60 @@ $^{3}$AXE Neuroscience, CHUL, Quebec , QC, Canada  }
 Brain researchers typically deal with large amounts of data from different sources and often, of different nature. This requires the use of several different software tools and makes it cumbersome and time consuming to answer simple questions. Because of this, data is not used to its fullest potential, and exploratory analysis is rarely done . This paper presents a software tool called BRAVIZ that integrates access to several data types and automates many of the cumbersome and error-prone tasks required to explore typical neuroscience data. This work focuses on integrating interactive visualization with real-time statistical analyses to facilitate exploration and discovery. BRAVIZ enables an inversion of the typical neuroscience analysis process by emphasizing images as the main organizing objects in the process rather than relying in abstract numerical indicators. This encourages researchers to notice trends and relationships, which motivate additional analyses and generally gain a fuller understanding of the phenomena represented by the data.  A case study is presented that incorporates MRI, DTI, and fMRI images together with a large amount of neuropsychological and clinical data.  The case study demonstrates how BRAVIZ enables researchers to discover new hypotheses about the relationships between structures and functions of the brain.
 
 \tiny
- \keyFont{ \section{Keywords:} Text Text Text Text Text Text Text Text } %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
+ \keyFont{ \section{Keywords:} Exploratory Analysis, Visual Analytics, Brain Data, MRI, Tractography, Cohorts } %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
 \end{abstract}
 
 \section{Introduction}
 
-% For Original Research Articles, Clinical Trial Articles, and Technology Reports the introduction should be succinct, with no subheadings.
-%
-% For Clinical Case Studies the Introduction should include symptoms at presentation, physical exams and lab results.
-%
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text. Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text.Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text.
+Visualizing and exploring data from brain studies is not an easy task. These studies include a large variety of data from each participant, some acquired from physical measurements or instrumentation, including neuroimages, while other information is acquired from cognitive or motor testing of the subjects. Demographical and clinical information from the subjects is also essential to make sense of the acquired data.
+This work focuses on brain studies in which imaging scans are applied to a group of subjects. Several image modalities can be acquired during the scan session. This spatial data is complemented by scalar measures, and other clinical variables. Often the objective of the study is to search for differences in imaging data between groups of subjects, or to find relationships between structure and function of the brain. In such cases the mentioned context information become crucial for the analysis of the data. 
+
+
+In this research, a particularly representative case study, the kmc project \citep{schneider_cerebral_2012}, is introduced to both motivate the requirements for BRAVIZ and demonstrate its effectiveness. The kmc study explores the effect of treatment options on premature births and data on subjects was collected from several fronts. The original randomized study involving about 750 preterm babies was conducted in 1994 \citep{charpak_kangaroo_1997}. These kids were followed during their first year \citep{charpak_randomized_2001, tessier_kangaroo_2009} of life and several clinical and socio-economical variables were registered. Forty of the kids from the original study were re located at fifteen years of age, the  subjects went through several neuropsychological tests, measuring attention, memory, reasoning skills and hand-eye coordination among others. They also went to vision, hearing and full medical examinations. Finally, they were scanned with Structural MRI, DTI and several fMRI protocols. \footnote{agregar este protocolo} These images were processed using freesurfer \citep{fischl_freesurfer_2012}, fsl\citep{jenkinson_fsl_2012}, camino\citep{cook_camino:_2006}, and spm\citep{friston_statistical_2006}; which extracted several numerical measurements and geometric structures as segmentations and tractographies. All of this data was collected for testing specific hypotheses but the specialists involved in the study are also interested in analyzing it for unexpected relationships and trends; in other words, to perform an exploratory analysis\citep{tukey_we_1980}.
+
+
+Exploratory analyses require visualizing different kinds of data, and interactively moving through it, and across participants. It requires visualizing image data in context; and tracing numerical features back to the image of origin. It is necessary to have an overview of the data in order to grasp patterns and detect outliers. Outliers need to be analyzed closely to understand if they are real data or the result of some mistake (see \cite{schneiderman_designing_1998}). 
+
+Current analysis tools  are designed to support the different steps of confirmatory analysis, and most image viewers are designed for quality control or for producing publication level images. However, exploratory research requires integrated analysis and visualization tools that provide immediate access to the data. Confirmatory analysis is a careful linear process, which starts with a hypothesis, processes data in a specific manner and performs planned statistics in order to prove the hypothesis. In contrast exploratory analysis is iterative and goes through the data multiple times in different ways. The objective is to find trends, patterns and general insights in the data, which may later become hypotheses that can be tested in a new experiment.
+
+Visual analytics\citep{cook_illuminating_2005} is a emerging field that attempts to put human experts and machines at the same level so that, working together, data can be better understood. This requires very efficient communication between the computer and the expert, which is accomplished through rich interactive visualizations. In visual analytics the strengths of computers and human experts complement each other. Human creativity, intuition, and expertise can guide the analysis into unexpected areas. Applying the visual analytics framework to neuroscience will allow researchers to extract more information from their large, multi-source and labor-intensive datasets, and potentially lead to new discoveries.
+
+This paper presents BRAVIZ, a software tool to facilitate visual exploration of brain data. It provides access to image data such as MRI, fMRI and DWI, as well as processed data, like surface segmentations, activation volumes and tractographies. It also supports access to tabular data and integrates some simple statistical analysis tools. In contrast to the conventional workflow that introduces visualization only at the end of the analysis, BRAVIZ positions interactive visualization at the core of exploratory research. Simple, efficient and intuitive access to visualization facilitates creation of analysis input, evaluation of analysis results, and inspiration of new research hypotheses. The system was designed following a user-centered methodology and aims to solve the bottlenecks identified in neuroscience domain experts’ workflow. The contributions of the systems can be summarized as:
+\begin{itemize}
+\item Visualization integrated at every step
+\item "Details on demand" via integrated data linking 
+\item Accelerated exploratory research by removing data access overhead
+\item Support concrete domain user needs
+\item Give researchers access to data that is typically out of their area of expertise, and improve communication between experts
+\item Opportunistic integration of existing tools and algorithms.
+
+\end{itemize}
 
 %\begin{methods}
-\section{Material \& Methods}
+\section{Description}
 
-Text Text Text Text Text Text  Text Text Text Text Text Text \cite{conference} Text Text Text  Text Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text  Text Text.  \cite{patent} might want to know about  text text text text Text Text Text Text  Text Text Text Text Text Text  Text Text. \citep{article} might want to know about  text text text text
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text  Text Text.  \cite{book} might want to know about  text text text text \cite{chapter}
+Include also here the not repeated paragraphs from the Methodology (really motivation) section of the last draft.
 
-\begin{table}[!t]
-\textbf{\refstepcounter{table}\label{Tab:01} Table \arabic{table}.}{ Maximum size of the Manuscript }
+\subsection{Example Tools}
 
-\processtable{ }
-{\begin{tabular}{lllll}\toprule
- & Abstract max. legth (incl. spaces) & Figures or tables & Manuscript max. length \\\midrule
-Clinical Case Study & & & &\\
-Clinical Trial & & & &\\
-Hypothesis and Theory & & & &\\
-Methods & 2000 characters  & 15 & 12000 words \\
-Original Research & & & &\\
-Review & & & &\\
-Technology Report & & & &\\\midrule
-Focused Review & 2000 characters & 5 & 5000 words \\\midrule
-CPC &  1250 characters& 6 & 2500 words  \\\midrule
-Perspective & 1250 characters & 2 & 3000 words  \\
-Mini Review & & & &\\\midrule
-Data Report & None & 2 & 3000 words\\\midrule
-Classification & 1250 characters & 10 & 2000 words \\\midrule
-Editorial & None & None & 1000 words  \\\midrule
-Frontiers Commentary  & & &\\
-General Commentary & None & 1 & 1000 words\\
-Book review & & & \\\midrule
-Opinion   & & &\\
-Specialty Grand Challenge & None & 1 & 2000 words\\
-Field Grand Challenge & & & &\\\botrule
-\end{tabular}}{}
-\end{table}
+Not sure if this needs a different section, maybe it should be summarized into the description
 
-Please note that large tables covering several pages cannot be included in the final PDF for formatting reasons. These tables will be published as supplementary material on the online article abstract page at the time of acceptance. The author will notified during the typesetting of the final article if this is the case. A link in the final PDF will direct to the online material.
+\section{Related Work}
 
-\subsection{Original Research Articles, Clinical Trial Articles, and Technology Reports}
+\section{Implementation}
 
-For Original Research Articles, Clinical Trial Articles, and Technology Reports the section headings should be those appropriate for your field and the research itself. It is recommended to organize your manuscript in the following sections or their equivalents for your field:
-
-\begin{itemize}
-%for bulleted list, use itemize
-\item Introduction: Succinct, with no subheadings.
-\item Materials and Methods: This section may be divided by subheadings. This section should contain sufficient detail so that when read in conjunction with cited references, all procedures can be repeated.
-\item Results: This section may be divided by subheadings. Footnotes should not be used and have to be transferred into the main text.
-\item Discussion: This section may be divided by subheadings. Discussions should cover the key findings of the study: discuss any prior art related to the subject so to place the novelty of the discovery in the appropriate context; discuss the potential short-comings and limitations on their interpretations; discuss their integration into the current understanding of the problem and how this advances the current views; speculate on the future direction of the research and freely postulate theories that could be tested in the future.
-\end{itemize}
-
-Please note that the Material and Methods section can be placed in any of the following ways: before Results, before Discussion or after Discussion.
-
-\subsection{Clinical Case Studies}
-
-For Clinical Case Studies the following sections are mandatory:
-
-\begin{itemize}
-%for bulleted list, use itemize
-\item Introduction: Include symptoms at presentation, physical exams and lab results.
-\item Background: This section may be divided by subheadings. Include history and review of similar cases.
-\item Results: This section may be divided by subheadings. Include diagnosis and treatment.
-\item Concluding Remarks
-\end{itemize}
-
-%\end{methods}
-
-
-
-\section{Results}
-
-\subsection{Figures}
-Frontiers requires figures to be submitted individually, in the same order as they are referred to in the manuscript. Figures will then be automatically embedded at the bottom of the submitted manuscript. Kindly ensure that each table and figure is mentioned in the text and in numerical order. Permission must be obtained for use of copyrighted material from other sources (including the web). Please note that it is compulsory to follow figure instructions. Figures which are not according to the guidelines will cause substantial delay during the production process.
-
-
-\begin{table}[!t]
-\textbf{\refstepcounter{table}\label{Tab:02} Table \arabic{table}.}{ Resolution Requirements for the figures}
-
-\processtable{}
-{\begin{tabular}{lllll}\toprule
-Image Type & Description & Format & Color Mode & Resolution\\\midrule
-Line Art & An image composed of lines and text,  & TIFF, JPEG & RGB, Bitmap & 900 - 1200 dpi\\
-           & which does not contain tonal or shaded areas.& & &\\
-           Halftone & A continuous tone photograph, which contains no text. & TIFF, EPS, JPEG & RGB, Grayscale & 300 dpi\\
-Combination & Image contains halftone + text or line art elements. & TIFF, JPEG & RGB,Grayscale & 600 - 900 dpi\\\botrule
-\end{tabular}}{}
-\end{table}
-
-\textbf{Table \ref{Tab:02}} shows the resolution requirements for the figures. The figures must be legible:
-\begin{enumerate}
-\item The smallest visible text is no less than 8 points in height, when viewed at actual size.
-\item Solid lines are not broken up.
-\item Image areas are not pixelated or stair stepped.
-\item Text is legible and of high quality.
-\item Any lines in the graphic are no smaller than 2 points width.
-\item The actual size of the figure must be of at least 8.5 cm.
-\end{enumerate}
-
-\subsection{Nomenclature}
-\begin{itemize}
-\item The use of abbreviations should be kept to a minimum. Non-standard abbreviations should be avoided unless they appear at least four times, and defined upon first use in the main text. Consider also giving a list of non-standard abbreviations at the end, immediately before the Acknowledgments.
-\item Gene symbols should be italicized; protein products are not italicized.
-\item Chemical compounds and biomolecules should be referred to using systematic nomenclature, preferably using the recommendations by IUPAC.
-\item We encourage the use of Standard International Units in all manuscripts.
-\item To take part in the Resource Identification Initiative, please cite antibodies, genetically modified organisms, software tools, data, databases and services using the corresponding catalog number and RRID in your current manuscript. For more information about the project and for steps on how to search for an RRID, please click \href{http://www.frontiersin.org/files/pdf/letter_to_author.pdf}{here}.
-\end{itemize}
-
-\begin{equation}
-\sum x+ y =Z\label{eq:01}
-\end{equation}
+\section{Case Study}
 
 \section{Discussion}
 
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text Text.
-Additional Requirements:
-\subsection{Corrections}
-
-If you need to communicate important changes to a published article please submit a General Commentary. Submit the article with the title “Corrigendum: Original Title of Article”.
-
-\subsection{Commentaries on Articles}
-
-At the beginning of your Commentary, please provide the citation of the article commented on. Rebuttals may be submitted in response to Commentaries; our limit in place is one commentary and one response. Rebuttals should also be submitted as General Commentary articles.
-
-\subsection{Human Search and Animal Research}
-
-All experiments on live vertebrates or higher invertebrates must be performed in accordance with relevant institutional and national guidelines and regulations. In the manuscript, authors must identify the committee approving the experiments and must confirm that all experiments conform to the relevant regulatory standards. For manuscripts reporting experiments on human subjects, authors must identify the committee approving the experiments and must also include a statement confirming that informed consent was obtained from all subjects. In Original Research Articles and Clinical Trial Articles these statements should appear in the Materials and Methods section.
-
-\subsection{Clinical Trial Registration}
-
-Clinical trials should be registered in a public trials registry in order to become the object of a publication at Frontiers. Trials must be registered at or before the start of patient enrollment. A clinical trial is defined as "any research study that prospectively assigns human participants or groups of humans to one or more health-related interventions to evaluate the effects on health outcomes."(\href{www.who.int/ictrp/en}{www.who.int/ictrp/en}). A list of acceptable registries can be found at \href{www.who.int/ictrp/en}{www.who.int/ictrp/en} and \href{www.icmje.org}{www.icmje.org}.
-
-\subsection{Inclusion of Proteomics Data}
-
-Authors should provide relevant information relating to how the peptide/protein matches were undertaken, including methods used to process and analyze data, false discovery rates (FDR) for large-scale studies and threshold or cut-off rates for peptide and protein matches. Further information could include software used, mass spectrometer type, sequence database and version, number of sequences in database, processing methods, mass tolerances used for matching, variable/fixed modifications, allowable missed cleavages, etc.
-
-Authors should provide as supplementary material information used to identify proteins and/or peptides. This should include information such as accession numbers, observed mass (m/z), charge, delta mass, matched mass, peptide/protein scores, peptide modification, miscleavages, peptide sequence, match rank, matched species (for cross species matching), number of peptide matches, ambiguous protein/peptide matches should be indicated, etc.
-For quantitative proteomics analyses authors should provide information to justify the statistical significance including biological replicates, statistical methods, estimates of uncertainty and the methods used for calculating error.
-
-For peptide matches with biologically relevant post-translational modifications (PTM) and for any protein match that has occurred using a single mass spectrum, authors should include this information as raw data, annotated spectra or submit data to an online repository (recommended option).
-Authors are encouraged to submit raw or matched data and 2-DE images to public proteomics repositories. Submission codes and/or links to data should be provided within the manuscript.
-
-\subsection{Data Sharing}
-
-Frontiers supports the policy of data sharing, and authors are advised to make freely available any materials and information described in their article, and any data relevant to the article (while not compromising confidentiality in the context of human-subject research) that may be reasonably requested by others for the purpose of academic and non-commercial research. In regards to deposition of data and data sharing through databases, Frontiers urges authors to comply with the current best practices within their discipline.
-
-\section*{Disclosure/Conflict-of-Interest Statement}
-%Frontiers follows the recommendations by the International Committee of Medical Journal Editors (http://www.icmje.org/ethical_4conflicts.html) which require that all financial, commercial or other relationships that might be perceived by the academic community as representing a potential conflict of interest must be disclosed. If no such relationship exists, authors will be asked to declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest. When disclosing the potential conflict of interest, the authors need to address the following points:
-%•	Did you or your institution at any time receive payment or services from a third party for any aspect of the submitted work?
-%•	Please declare financial relationships with entities that could be perceived to influence, or that give the appearance of potentially influencing, what you wrote in the submitted work.
-%•	Please declare patents and copyrights, whether pending, issued, licensed and/or receiving royalties relevant to the work.
-%•	Please state other relationships or activities that readers could perceive to have influenced, or that give the appearance of potentially influencing, what you wrote in the submitted work.
-
-The authors declare that the research was conducted in the absence of any commercial or financial relationships that could be construed as a potential conflict of interest.
-
-\section*{Author Contributions}
-%When determining authorship the following criteria should be observed:
-%•	Substantial contributions to the conception or design of the work; or the acquisition, analysis, or interpretation of data for the work; AND
-%•	Drafting the work or revising it critically for important intellectual content; AND
-%•	Final approval of the version to be published ; AND
-%•	Agreement to be accountable for all aspects of the work in ensuring that questions related to the accuracy or integrity of any part of the work are appropriately investigated and resolved.
-%Contributors who meet fewer than all 4 of the above criteria for authorship should not be listed as authors, but they should be acknowledged. (http://www.icmje.org/roles_a.html)
-
-The statement about the authors and contributors can be up to several sentences long, describing the tasks of individual authors referred to by their initials and should be included at the end of the manuscript before the References section.
-
+\section{Figures}
 
 \section*{Acknowledgments}
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text. Text Text Text Text Text Text  Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text. 
-
-
-\textit{Funding\textcolon} Text Text Text Text Text Text  Text Text.
-
-\section*{Supplemental Data}
-Supplementary Material should be uploaded separately on submission, if there are Supplementary Figures, please include the caption in the same file as the figure. LaTeX Supplementary Material templates can be found in the Frontiers LaTeX folder
-
-Text Text Text Text Text Text  Text Text Text Text Text Text Text Text  Text Text Text Text Text Text Text Text Text  Text Text Text.
 
 
 \bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
 %\bibliographystyle{frontiersinHLTH&FPHY} % for Health and Physics articles
-\bibliography{test}
+\bibliography{zotero}
 
 %%% Upload the *bib file along with the *tex file and PDF on submission if the bibliography is not in the main *tex file
 
@@ -265,24 +152,5 @@ Text Text Text Text Text Text  Text Text Text Text Text Text Text Text  Text Tex
 %%% There is no need for adding the file termination, as long as you indicate where the file is saved. In the examples below the files (logo1.jpg and logo2.eps) are in the Frontiers LaTeX folder
 %%% If using *.tif files convert them to .jpg or .png
 
-\begin{figure}[h!]
-\begin{center}
-%\includegraphics[width=10cm]{logo1}% This is a *.jpg file
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig:01} Figure \arabic{figure}.}{ Enter the caption for your figure here.  Repeat as  necessary for each of your figures }
-\end{figure}
-
-%\begin{figure}
-%\begin{center}
-%\includegraphics[width=10cm]{logo2}% This is an *.eps file
-%\end{center}
-%\textbf{\refstepcounter{figure}\label{fig:02} Figure \arabic{figure}.}{ Enter the caption for your figure here.  Repeat as  necessary for each of your figures }
-%\end{figure}
-
-%%% If you don't add the figures in the LaTeX files, please upload them when submitting the article.
-
-%%% Frontiers will add the figures at the end of the provisional pdf automatically %%%
-
-%%% The use of LaTeX coding to draw Diagrams/Figures/Structures should be avoided. They should be external callouts including graphics.
 
 \end{document}
