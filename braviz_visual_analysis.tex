@@ -189,7 +189,15 @@ Not sure if this needs a different section, maybe it should be summarized into t
 
 \section{Related Work}
 
+In recent years the amount of MRI-Data collected has grown significantly. It is also increasingly common to find large medical image databases open for analysis, such as the human connectome project\citep{rosen_human_2010} and ADNI\citep{jack_alzheimers_2008}. This has created a need for exploration tools that will allow researchers from around the world to extract knowledge from this data. Notice that the interest here shifts from hypothesis testing towards hypothesis generation, and therefore the workflow is completely different.
+  
+INVIZIAN\citep{bowman_query-based_2011,bowman_feature-similarity_2012} is an application for exploring large brain datasets which integrates structural and scalar data. It organizes data in an abstract 3D space in such a way that similar brains are located close to one another. The system can display more or fewer details of each brain depending on the zoom level. It is also integrated with gGobi\citep{cook_interactive_2007} in order to explore relations between scalar values and more complex brain features. It can handle datasets of several hundreds of brains and it uses sophisticated data mining algorithms, feature extraction and abstract spaces to create the representation. The main different to our approach is that BRAVIZ focuses on leveraging the creativity, intuition, experience and knowledge of the human expert while INVIZIAN focuses on machine learning methods. In the future both approaches should be integrated.
+
+The Visual Analytics of Brain Networks\citep{li_visual_2012} (VABN) software is focused on analyzing large connectivity datasets by defining a robust and repeatable algorithm for region of interest (ROI) placement that will act as nodes. This creates comparable networks that can be analyzed with graph based methods. The tool provides access to the underlying DWI or fMRI data in order to initially place the ROIs and to verify the results. The methods and software libraries used in this tool are very similar to BRAVIZ. However the objectives of both projects are different, as VABN does not seek to integrate connectivity data with other kinds of data. In the future VABN’s network analyzes could be integrated into BRAVIZ to further extend its capabilities.
+
 \section{Implementation}
+
+
 
 \section{Case Study}
 
