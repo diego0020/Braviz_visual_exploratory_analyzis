@@ -160,7 +160,7 @@ This paper presents BRAVIZ, a software tool to facilitate visual exploration of 
 
 BRAVIZ was designed following a "user centered" approach\citep{fernandez_user-centered_2013,wassink_applying_2009}. The authors worked closely with brain researchers of several specialties, visited several labs and hospitals, and learned as much as possible about typical neuroscience research workflows. An extensive literature review in the domain led to better understanding of the kinds of data patterns neuroscience researchers find interesting. In addition, the graphics and pictures in these publications were used as models for BRAVIZ visualizations so that they would look familiar to the neuroscience research community. The design, development and evaluation process consisted of several iterative cycles, prototypes were shared with domain experts, and their feedback motivated design ideas and usability enhancements for the next generation. As the development cycles progressed, the domain experts ventured further away from common paradigms; they were encouraged to dream, and not to worry about how complex it would be to implement the ideas. 
 
-Instead of one large application with numerous features and controls, BRAVIZ is divided into several small tools. This tools are designed to analyze cohort data, i.e., data that is composed from a set of subjects with several measures. Smaller samples of subjects, or subsamples, can also be analyzed and compared against each other. Nominal or numerical measures of the subjects are called variables, and these complement the neuro-image based spatial data. Note that the set of variables can be extended by deriving new values from spatial data or existing variables. 
+Instead of one large application with numerous features and controls, BRAVIZ is divided into several small tools. Individual tools are tailored towards specific tasks and therefore are easy to learn and use. This tools are designed to analyze cohort data, i.e., data that is composed from a set of subjects with several measures. Smaller samples of subjects, or subsamples, can also be analyzed and compared against each other. Nominal or numerical measures of the subjects are called variables, and these complement the neuro-image based spatial data. Note that the set of variables can be extended by deriving new values from spatial data or existing variables. 
 
 BRAVIZ tools combine numerical and nominal variables with spatial data. There are tools to look at spatial data from a single subject with high detail, as well as tools to look at spatial data associated with a subsample; both with numerical and categorical data as context. Another group of tools is focused on exploring these variables, but always linking back to details of each subject.
 
@@ -183,9 +183,49 @@ In a typical neuroscience research group, both types of tools (visualization and
 %Include also here the not repeated paragraphs from the Methodology (really motivation) section of the last draft.
 
 
-\subsection{Some BRAVIZ Tools}
+\subsection{BRAVIZ Tools}
 
-Not sure if this needs a different section, maybe it should be summarized into the description
+%Not sure if this needs a different section, maybe it should be summarized into the description
+
+The current set of applications comprising BRAVIZ can be divided in three categories. One set of applications focuses on displaying geometric data using other variables as context, another focuses on manual measuring or creating new descriptors from geometric data, ant the last one focuses on exploring numerical and categorical data while maintaining a link to the underlying geometric data. Additionally there are tools for importing and exporting data in spreadsheet format; so that the tools can interact with statistical software. All tools are accessible from a graphical menu as shown in figure \ref{fig_menu}. The tools included in the current version are
+
+\begin{itemize}
+\item Create and Measure: Define new scalars of geometric structures based on spatial data for the whole cohort.
+\begin{itemize}
+\item Roi Builder: Create spherical regions of interest, using images or surfaces as context.
+\item Linear Measure: Measure elements of any image using lines
+\item Logic Bundles: Define fiber bundles by doing logical operations on ROIs and segmented structures.
+\end{itemize}
+\item Visualize Spatial Data: Explore different kinds of spatial data in context.
+\begin{itemize}
+\item Subject Overview: Visualize several spatial objects, as well as context information for a single subject.
+\item Sample Overview: Repeat the same visualization for a group of subjects, sorted by a numerical variable and divided in groups by a nominal variable.
+\item Explore fMRI: Visualize BOLD timelines, experiment design and contrasts (read from spm file).
+\item Check Registration: Visualize two images at the same time to evaluate the quality of registration. 
+\end{itemize}
+\item Analysis: Analyze data from tables together with variables derived from spatial data. 
+\begin{itemize}
+\item Anova : Perform ANOVA analyzes on the database variables,
+\item Linear Model: Fit a Linear model to variables in the database.
+\item Correlations: Explore correlations between variables in the database.
+\item Parallel Coordinates: Visualize multiple variables in interactive parallel coordinates.
+\end{itemize}
+\end{itemize} 
+
+The main interface of the Subject Viewer application is shown on figure \ref{fig_subject}. This tool provides access to MRI Images, Freesurfer semgentations and reconstruction, tractographies, tracula bundles and fMRI maps; all through graphical menus. The user never needs to know which files are involved in displaying a particular scene. Some geometrical features, as volume or mean FA inside a structure, can be captured directly from  this application and added into the database as a new variable. 
+
+Below the main view (as shown in Figure \ref{fig_subject}) is a context panel, that displays the values of selected variables for the current subject. To change the current subject the user may use the controls underneath the main view, or select from the table in the subjects panel at the left. All of the current selected variables and geometric objects in the view are updated to display the information for the new subject. Thus it is straightforward to look at a certain aspect across different subjects. In the lower left corner is a control that allows the user to select between native MRI coordinate systems, Talairach space or Dartel template space (involves non linear registration). All of the geometric objects in the scene are shown in the selected coordinate space. The Talairach and Dartel spaces make it easy to compare among different subjects but may add some distortion to the objects, so the user must pick the most appropriate coordinates for the task at hand. 
+
+A small-multiples view[19] display of several subjects, as shown in figure \ref{fig_sample}, is available in the sample overview application. This application is useful for finding trends across a sample or doing quality control and spotting problematic images. Subjects are arranged from left to right according to a numerical variable, and rows are defined by a nominal variable. In the example shown the two rows are males and females, and the ordering variable is the score in a math test. The bar-plot at the right shows the distribution of the variable among the two groups and is coordinated with the 3d views.A bar-plot is used because it provides the best sense of magnitude differences for variables that have a meaningful zero. Each view shows a collection of objects defined in the subject overview application. In this way the interface is kept simple, as there is no need for visual configuration options.
+
+As before different coordinates systems can be used to make comparisons easier. The camera between the small multiples is also coordinated, if the view is changed in any of the views, the others are changed accordingly. In addition if the user is interested in getting a more detailed view of any of them, he can right click and from the context menu open a full subject viewer application with the correct scenario and subject loaded, or make all opened BRAVIZ applications switch to the corresponding subject.
+
+At the core of BRAVIZ is a database that contains clinical and demographic data, as well as results from neuropsychological tests or questionnaires; and enriched with geometric indicators generated in external tools or inside BRAVIZ. All of the individual tools that BRAVIZ provides are integrated with the database. BRAVIZ provides several common statistical analysis tools that access this database, as for example, an ANOVA  analysis, which can be completed with the application shown in figure \ref{fig_anova}. In order to perform the analysis the user must select an outcome variable, one or more regressors and optionally interaction terms. It is also possible to limit the analysis to a specific subset of subjects. Afterwards it is only necessary to click on the Calculate Anova button, which fetchs the required data from the database and performs the calculation\footnote{Maybe there is no need to mention R here}. The main plot will initially show diagnostics, i.e. distribution of residuals and a scatter plot of residuals vs fitted values. The table at the bottom right shows the resulting fitted values. By double clicking on any row a plot showing the effect of that particular term will be displayed. From this plot it is possible to right click on an outlier to get additional information, or to show him on any other opened BRAVIZ applications. This plot will also respond to messages from other applications and highlight the corresponding subject.
+
+It is worth noting that no correction for multiple comparisons is applied in the statistical tests; so care must be taken when interpreting the results. The objective here is not to prove hypotheses but to explore data and find interesting hypotheses, which should be tested using the usual methods.
+
+Figure \ref{fig_other_apps} shows several other applications currently built into the system. More information as well as the source code for the project can be found at http://diego0020.github.io/braviz
+
 
 \section{Related Work}
 
@@ -233,6 +273,39 @@ Web based?
 %%% Use this if adding the figures directly in the mansucript, if so, please remember to also upload the files when submitting your article
 %%% There is no need for adding the file termination, as long as you indicate where the file is saved. In the examples below the files (logo1.jpg and logo2.eps) are in the Frontiers LaTeX folder
 %%% If using *.tif files convert them to .jpg or .png
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/braviz_menu.PNG}
+\end{center}
+ \textbf{\refstepcounter{figure}\label{fig_menu} Figure \arabic{figure}.}{This menu is currently used to access the different applications. It also provides facilities to review the available variables and the saved scenarios, to view and create subsamples, and to import to and export from spreadsheets.  }
+\end{figure}
 
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{figures/subj_overview_full.PNG}
+\end{center}
+ \textbf{\refstepcounter{figure}\label{fig_subject} Figure \arabic{figure}.}{Main interface of the subject overview application. At the bottom of the render panel some variables about the subject are shown to provide context. At the bottom-left corner we have controls to change the coordinate system, and to move the camera to preset positions. Most of the data is available via the different tabs at the left panel. The current tab provides a list of available subjects, it is enough to double click in a row to get the selected data for that subject. The arrows directly under the 3d viewer provide another convenient way to move through the subjects following the order of the list. }
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{figures/sample_overview.PNG}
+\end{center}
+ \textbf{\refstepcounter{figure}\label{fig_sample} Figure \arabic{figure}.}{This application gives access to the data of several subjects at the same time. Images are sorted from left to right according to a numerical variable (shown in the bars at the right) and arranged in columns by a cathegorical variable (bars color)  }
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{figures/anova.PNG}
+\end{center}
+ \textbf{\refstepcounter{figure}\label{fig_anova} Figure \arabic{figure}.}{An application for performing ANOVA analyses using the data in the BRAVIZ database. You can right click on an outlier to select it on all open BRAVIZ applications. }
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.9\textwidth]{figures/many_apps.png}
+\end{center}
+ \textbf{\refstepcounter{figure}\label{fig_other_apps} Figure \arabic{figure}.}{Examples of currently available applications. A) ROI builder. B) Linear model. C) Explore fMRI. D) Correlations. E) Parallel coordinates}
+\end{figure}
 
 \end{document}
