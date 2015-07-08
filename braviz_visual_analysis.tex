@@ -197,12 +197,26 @@ The Visual Analytics of Brain Networks\citep{li_visual_2012} (VABN) software is 
 
 \section{Implementation}
 
+BRAVIZ implemented in Python which is now popular in the neuroscience community \citep{gorgolewski_nipype:_2011, garyfallidis_dipy_2014}.  Powerful plotting, rendering, and data manipulation libraries are available, and because it is an interpreted language it can be used interactively and debugging is simpler. The trade-off is a loss of performance compared to compiled languages, but so far interactivity has been maintained by letting VTK\citep{schroeder_vtk_1998} and Numpy\citep{van_der_walt_numpy_2011} do the most expensive operations. It has been tested in Mac, Windows and Linux.
 
+Mechanisms to read and display several kinds of spatial data are implemented, including images, freesurfer \citep{fischl_freesurfer_2012} cortex reconstructions and tractographies. This information is integrated with variables which can be stored as numerical values or labels. These can be derived from geometric objects by, for example, averaging FA over a region, by measuring the volume of a segmented structure, defining new fiber bundles and measuring their mean FA or by measuring the length of a given structure. These variables can then be used in the same way as the original context variables.
+
+BRAVIZ is also a library that can be used for creating custom visualizations to support specific tasks. Figure x shows the general architecture of the system.
+
+The “Read and filter” module handles all access to the file system. Each braviz project is composed of a SQLite database file, and the files containing the images and other geometric data. Specific project reader modules can be created to adjust to the layout, file names and other peculiarities of each project. The active project, favorite variables and favorite subject, are specified through a configuration file. This module provides other useful functions like attaching scalars to geometric objects, filtering fiber bundles and transforming between coordinate systems. Underneath the module relies heavily on nibabel\citep{gorgolewski_nipype:_2011}, numpy\citep{van_der_walt_numpy_2011} , scipy\citep{jones_$$scipy$$:_2014} and VTK\citep{schroeder_vtk_1998} . Notice that the module handles all the necessary transformations of spatial data, and exposes a high level interface to the upper layers. In this way application designers can focus on visualization and interaction as required by end users and let the library handle registration and other mathematical requirements. Accessing data through the “Read and filter” module, allows developer to create applications that can be easily adapted to different projects. 
+
+The “Read and filter” module also provides access to numerical and categorical variables that are stored in a SQLite database. Pandas' DataFrames are the preferred way to manipulate data and move it through the different components of an application. This database also contains annotations, scenarios, and user defined geometrical objects. 
+
+The “visualization” module provides reusable components for visualizing 3d-geometric data and scalar data. VTK is used for all the 3d visualization while 2d visualization is achieved through matplotlib \citep{hunter_matplotlib:_2007} and seaborn\citep{michael_waskom_seaborn:_2014}. Examples of the visualizations created by this module can be seen in figures X-X.
+
+The “interaction” modules contains several reusable user interface components. It also provides functions for doing statistical calculations in R\citep{team_r:_2012} through the rpy2 \citep{gautier_rpy2:_2008} python package. The current version uses PyQt4 for the user interface with some web based visualizations built using the tornado\citep{server_source_2008} framework  This module also contains code to handle communication between different applications by using the 0mq protocol\citep{hintjens_zeromq:_2013}.
 
 \section{Case Study}
 
 \section{Discussion}
 
+Future work
+Web based?
 \section{Figures}
 
 \section*{Acknowledgments}
