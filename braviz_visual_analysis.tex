@@ -3,34 +3,35 @@
 \usepackage[utf8]{inputenc}
 %\usepackage{inputenc}
 \usepackage[english]{babel}
-\DeclareUnicodeCharacter{2264}{$\leq$}
+%\DeclareUnicodeCharacter{2264}{$\leq$}
+%\DeclareUnicodeCharacter{002E}{$\leq$}
 \usepackage{letltxmacro}
 
 \usepackage{stringenc}
 \usepackage{pdfescape}
 
 \makeatletter
-\renewcommand*{\UTFviii@defined}[1]{%
-  \ifx#1\relax
-    \begingroup
-      % Remove prefix "\u8:"
-      \def\x##1:{}%
-      % Extract Unicode char from command name
-      % (utf8.def does not support surrogates)
-      \edef\x{\expandafter\x\string#1}%
-      \StringEncodingConvert\x\x{utf8}{utf16be}% convert to UTF-16BE
-      % Hexadecimal representation
-      \EdefEscapeHex\x\x
-      % Enhanced error message
-      \PackageError{inputenc}{Unicode\space char\space \string#1\space
-                              (U+\x)\MessageBreak
-                              not\space set\space up\space
-                              for\space use\space with\space LaTeX}\@eha
-    \endgroup
-  \else\expandafter
-    #1%
-  \fi
-}
+%\renewcommand*{\UTFviii@defined}[1]{%
+%  \ifx#1\relax
+%    \begingroup
+%      % Remove prefix "\u8:"
+%      \def\x##1:{}%
+%      % Extract Unicode char from command name
+%      % (utf8.def does not support surrogates)
+%      \edef\x{\expandafter\x\string#1}%
+%      \StringEncodingConvert\x\x{utf8}{utf16be}% convert to UTF-16BE
+%      % Hexadecimal representation
+%      \EdefEscapeHex\x\x
+%      % Enhanced error message
+%      \PackageError{inputenc}{Unicode\space char\space \string#1\space
+%                              (U+\x)\MessageBreak
+%                              not\space set\space up\space
+%                              for\space use\space with\space LaTeX}\@eha
+%    \endgroup
+%  \else\expandafter
+%    #1%
+%  \fi
+%}
 \makeatother
 
 \LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
@@ -145,7 +146,7 @@ This paper presents BRAVIZ, a software platform that facilitates visual explorat
 
 \section{Related Work}
 
-In recent years the amount of MRI-Data collected has grown significantly. It is also increasingly common to find large medical image databases open for analysis, such as the human connectome project\citep{rosen_human_2010} and ADNI\citep{jack_alzheimers_2008}. This has created a need for exploration tools that will allow researchers from around the world to extract knowledge from this data. 
+In recent years the amount of MRI-Data collected has grown significantly. It is also increasingly common to find large medical image databases open for analysis, such as the human connectome project\citep{rosen_human_2010} and ADNI\citep{jack_alzheimers_2008}. This has created a larger need for exploration tools that will allow researchers from around the world to extract knowledge from this data. 
 
 The neuroscience software ecosystem is rich with high quality tools. However most of them are designed for data processing and most of them are thought of as components inside the confirmatory analysis pipeline. These tools provide powerful transformation of the data that could benefit exploratory analyzes, nevertheless, to the best of our knowledge, there are not many tools designed explicitly for exploratory analysis available.
 
@@ -169,30 +170,28 @@ BRAVIZ was designed following a "user centered" approach\citep{fernandez_user-ce
 
 The design, development and evaluation process consisted of several iterative cycles, prototypes were shared with domain experts, and their feedback motivated design ideas and usability enhancements for the next generation. As the development cycles progressed, the domain experts ventured further away from common paradigms; they were encouraged to dream, and not to worry about how complex it would be to implement the ideas. 
 
-The initial stages of design focused on identifying the obstacles that affected communication between experts, and looked explored ways of mitigating them. The team of experts was composed of radiologists, psychiatrists, pediatricians, physicians, physiologists, statisticians, engineers and economists. Each of these groups of experts typically utilizes tools designed to foster their analysis and contribution to the team, but very few develop skills in tools outside of their areas of expertise.
+The initial stages of design focused on identifying the obstacles that affected communication between experts, and explored ways of mitigating them. The team of experts was composed of radiologists, psychiatrists, pediatricians, physicians, physiologists, statisticians, engineers and economists. Each of these groups of experts typically utilizes tools designed to foster their analysis and contribution to the team, but very few develop skills in tools outside of their areas of expertise. This effort exposed typical process bottlenecks that affect efficient exploratory analyzes. By decreasing data access overhead, BRAVIZ accelerates exploratory research and gives experts access to data that is typically out of their area of expertise.
 
-An extensive literature review in the domain led to better understanding of the kinds of data patterns neuroscience researchers find interesting. In addition, the graphics and pictures in these publications were used as models for BRAVIZ visualizations so that they would look familiar to the neuroscience research community. From analyzing the visualization capabilities in common neuro-image tools, as well as the way experts use them, the BRAVIZ team learned what was expected from image viewers, which features were important and which ones were seldom used. This effort also exposed typical process bottlenecks that affect efficient exploratory analyzes.
+An extensive literature review in the domain led to better understanding of the kinds of data patterns neuroscience researchers find interesting. In addition, the graphics and pictures in these publications were used as models for BRAVIZ visualizations so that they would look familiar to the neuroscience research community. From analyzing the visualization capabilities in common neuro-image tools, as well as the way experts use them, the BRAVIZ team learned what was expected from image viewers, which features were important and which ones were seldom used. 
 
-The goal of BRAVIZ is to provide a tool that integrates the best statistical and neuro-image domains, and better supports exploratory analyzes with spatial data. A crucial aspect is providing a direct bridge between statistics and neuroimage visualizations. By integrating concepts from both domains BRAVIZ seeks to grasp the attention of all kinds of specialties and increase communication between them.  By decreasing data access overhead, it accelerates exploratory research and gives experts access to data that is typically out of their area of expertise.
+The goal of BRAVIZ is to provide a tool that integrates the best from  statistical and neuro-image domains, and better supports exploratory analyzes involving spatial data. A crucial aspect is providing a direct bridge between statistics and neuroimage visualizations. By integrating concepts from both domains BRAVIZ seeks to grasp the attention of all kinds of specialties and increase communication between them.  
 
 Instead of one large application with numerous features and controls, BRAVIZ is divided into several small tools. Individual tools are tailored towards specific tasks and therefore are easier to learn and use. This tools are designed to analyze cohort data, i.e., data that is composed from a set of subjects with several measures. Smaller samples of subjects, or subsamples, can also be analyzed and compared against each other. 
 %Nominal or numerical measures of the subjects are called variables, and these complement the neuro-image based spatial data. Note that the set of variables can be extended by deriving new values from spatial data or existing variables. 
 
-BRAVIZ tools combine numerical and nominal variables with spatial data. There are tools to look at spatial data from a single subject with high detail, as well as tools to look at spatial data associated with a subsample; both with numerical and categorical data as context and tools focused on exploring these variables, but always linking back to details of each subject. Scalar data extracted from images is stored and managed in the same way as other clinical variables. It is also possible to extract additional features on the fly and add them to this pool of variables.
+%BRAVIZ tools combine numerical and nominal variables with spatial data. 
+BRAVIZ includes tools to look at spatial data from a single subject with high detail, as well as tools to look at spatial data associated with a subsample; both with numerical and categorical data as context and tools focused on exploring these variables, but always linking back to details of each subject. Scalar data extracted from images is stored and managed in the same way as other clinical variables. It is also possible to extract additional features on the fly and add them to this pool of scalar variables.
 
 Each of the tools has data visualization as its centerpiece. This visualization can be customized, usually by adding or removing variables or spatial data, according to the question at hand. The state of the visualization can be saved  to recall it at a future time or to share it with colleagues. 
 This visualizations are interactive and capable of generating a dialogue with the user.
 As Colin Ware \citep{ware_information_2004} said "The best visualizations are not static images to be printed in books, but fluid, dynamic artefacts that respond to the need for different views or for more detailed information".  
 
-Though the system is built from several small applications, they are designed to work together synchronously in order to support more complex tasks. Subsamples, variables and subjects of interest can be shared across tools and among colleagues. Altogether, this creates a flexible environment that can be adapted to several kinds of data, questions, workflows and experts.
+Though the system is built from several small applications, they are designed to work together synchronously in order to support more complex tasks. Subsamples, variables and subjects of interest can be shared across tools and among colleagues. Altogether, this creates a flexible environment that can be adapted to several kinds of data, questions, workflows and experts. These features, combined with having all data and analysis tools a couple of clicks away; provides a pleasant and efficient exploratory analysis environment. 
 
-Even though BRAVIZ has a very simple interface, designed to be easy to use, it was of vital importance to have the underlying mathematics and data processing operations done right. The data that is shown to the expert must always be exact, and all underlying transformations and calculations should be done rigorously. 
+Even though BRAVIZ has a very simple interface, designed to be easy to use, it was of vital importance to have the underlying mathematics and data processing operations done right. The data that is shown to the expert must always be exact, and all underlying transformations and calculations should be done rigorously. Several of the calculations are made ahead of time and kept in a cache in order to speed-up response at analysis time. 
+To maintain interactivity and provide high quality visualizations and data processing tools, BRAVIZ leverages several state state-of-the-art open-source applications and libraries, for details about the implementation see the supporting material of this paper. Additionally, BRAVIZ is open source and can be downloaded from the project webpage \url{diego0020.github.io/braviz}. 
 
 %Include also here the not repeated paragraphs from the Methodology (really motivation) section of the last draft.
-Several of the calculations are made ahead of time and kept in a cache in order to speed-up response at analysis time. 
-To maintain interactivity and provide high quality visualizations and data processing tools, BRAVIZ leverages several state state-of-the-art open-source applications and libraries, for details about the implementation see the supporting material of this paper.  
-These features, combined with having all data and analysis tools a couple of clicks away; provides a pleasant and efficient exploratory analysis environment. 
-
 
 \subsection{BRAVIZ Tools}
 
