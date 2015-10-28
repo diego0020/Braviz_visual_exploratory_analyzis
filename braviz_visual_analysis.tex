@@ -137,18 +137,20 @@ Brain researchers typically deal with large amounts of data from different sourc
 
 \section{Introduction}
 
-% Large datasets
-% Relate structure and function
 % Comprehend subjects as a whole
+% Relate structure and function
+% Large datasets
 % Example, kmc study
+
+In the last years there has been an increase in the studies that try to analyze the human brain as a whole, specially to relate its structure to its functioning. This requires gathering data from both aspects and analyzing it in an integrated fashion. The example that motivated this project was an study on preterm babies who were retrieved at 15 years of age \citep{schneider_cerebral_2012}. The kids went through several modalities of MRI scans as well as several neuropsychological tests and TMS measurements. The goal of that study was finding evidence of long term effects of an intervention done at birth in brain structure, function and the relation between them. 
 
 % In addition to confirmation, there is a need to explore the data to find new (surprising) hypotheses
 % Appropriate tools for exploratory analysis not the same as for confirmatory
-% Multiple iterations trough data
-
+% Multiple iterations through data
+Data from these experiments is first analyzed and used in statistical tests for hypotheses raised before gathering the data. Afterwards data should be explored \citep{tukey_we_1980} in order to find unexpected patterns or trends in the data which could be developed into new hypotheses. The tools required for such exploratory analyzes differ substantially on those available for confirmatory analyzes. While the workflow in confirmatory analysis is almost linear, exploratory analyses requires iterating several times over the data while applying transformations, filters and looking at data from multiple points and at different levels of detail \citep{schneiderman_designing_1998}.
 % Experts are required
 % Moreover, experts from multiple disciplines
-
+Only brain experts can interpret correctly the data, extract meaning from it and ultimately formulate useful hypotheses. Moreover, in order to integrate the different dimensions of each subject reflected in the data, experts from multiple backgrounds need to work together. Therefore tools for collaborative exploration of heterogeneous data-sets are required. In this paper, Braviz, a tool designed for this purpose will be presented.
 % User centered design
 % Limitations and bottlenecks with current tools
 % Needs to be efficient
@@ -156,8 +158,11 @@ Brain researchers typically deal with large amounts of data from different sourc
 % -- quick
 % -- not repetitive
 % -- intuitive
-
+The design and implementation process followed a user centered design \citep{wassink_applying_2009} methodology. The process consists of several analysis, design and evaluation stages; each one being more detailed. The first analysis stage consisted of defining the analysis tasks that would be addressed and the needs, limitations and bottlenecks that users encountered. This followed by design and implementation of quick prototypes which were evaluated again by the target community. The results from this evaluation were the basis for a second iteration where the tool was more robustly implemented. 
+Current tools are not optimized for exploratory analysis, and therefore users must compensate by moving data through different applications and continuously repeating the same steps over and over. Exploration tools should allow experts to perform most analyzes on the same environment and automate everything that can be automated. Experts should remain focused on the data and its meaning, and don't get distracted by the tools or technicalities of the data \citep{klein_101_2012}.
 % Visual Analytics
+
+Visual analytics \citep{cook_illuminating_2005} proposes a framework where human experts work together with high performance computing platforms in order to explore large and complex data sets. This collaboration is achieved trough simple and intuitive interfaces, combined with rich interactive visualizations. By applying these principles, brain experts can be more efficient in exploring large heterogeneous datasets. The next section will expose other projects that apply visual analytics techniques to analysis of brain data. Afterwards the proposed tool will be presented followed by an use case which will illustrate how it can be used to efficiently explore a rich dataset. Section \ref{sec:disc} contains a discussion of how tools such as Braviz can improve brain research and ideas for future work.
 
 % Objective
 % Efficient exploration of 
@@ -291,7 +296,7 @@ Figure \ref{fig_other_apps} shows several other applications currently built int
 In this research, a particularly representative case study, the kmc project \cite{schneider_cerebral_2012}, is introduced to both motivate the requirements for BRAVIZ and demonstrate its effectiveness. The kmc study explores the effect of treatment options on premature births and data on subjects was collected from several fronts. The original randomized study involving about 750 preterm babies was conducted in 1994 \citep{charpak_kangaroo_1997}. These kids were followed during their first year \citep{charpak_randomized_2001, tessier_kangaroo_2009} of life and several clinical and socio-economical variables were registered. Forty of the kids from the original study were re located at fifteen years of age, the  subjects went through several neuro-psychological tests, measuring attention, memory, reasoning skills and hand-eye coordination among others. They also went to vision, hearing and full medical examinations. Finally, they were scanned with Structural MRI, DTI and several fMRI protocols. \footnote{agregar este protocolo} These images were processed using freesurfer \citep{fischl_freesurfer_2012}, fsl\citep{jenkinson_fsl_2012}, camino\citep{cook_camino:_2006}, and spm\citep{friston_statistical_2006}; which extracted several numerical measurements and geometric structures as segmentations and tractographies. All of this data was collected for testing specific hypotheses but the specialists involved in the study are also interested in analyzing it for unexpected relationships and trends; in other words, to perform an exploratory analysis\citep{tukey_we_1980}.
 
 \section{Discussion}
-
+\label{sec:disc}
 Several users who have contributed to the development of BRAVIZ now use it regularly as part of their work. They continue experimenting with the tool and proposing improvements. Many users, especially those without expertise in image processing, like how they now can create and analyze spatial data on their own.  By using BRAVIZ it is straightforward to explore the data and answer questions. It is also common for more complex ideas to occur to the user while exploring. While exploring in this fashion, experts often discover new ways to use the processing power of tools like Freesurfer or SPM; and therefore take better advantage of them.
 
 Even without looking at spatial data, users enjoy getting visualizations of nominal and numerical variables instantaneously, which allows them to explore the dataset efficiently. BRAVIZ tools have proven to be easy to learn. It is designed to provide a starting point for facilitating exploratory analysis, and we expect that afterward users may move to more powerful and complex tools.
