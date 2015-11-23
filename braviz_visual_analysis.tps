@@ -12,13 +12,13 @@ MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
 NormalPos.right=1318
-NormalPos.bottom=506
+NormalPos.bottom=546
 Class=LaTeXView
 Document=braviz_visual_analysis.tex
 
 [Frame0_View0,0]
-TopLine=234
-Cursor=15265
+TopLine=374
+Cursor=23775
 
 [SessionInfo]
 FrameCount=1
