@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=braviz_visual_analysis.tex
 
 [Frame0_View0,0]
-TopLine=321
-Cursor=20383
+TopLine=159
+Cursor=6724
 
 [SessionInfo]
 FrameCount=1
