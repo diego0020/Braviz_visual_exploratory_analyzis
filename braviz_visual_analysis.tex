@@ -32,6 +32,7 @@
 
 \usepackage{stringenc}
 \usepackage{pdfescape}
+\usepackage{subcaption}
 
 \usepackage{url,hyperref,lineno,microtype}
 \usepackage{mathptmx}
@@ -107,9 +108,9 @@ New BRAVIZ applications are implemented based on the common library, freeing dev
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.4\textwidth]{figures/arquitecture.png}
+\includegraphics[width=0.6\linewidth]{figures/arquitecture.png}
 \end{center}
- \caption{\label{fig_arch} The BRAVIZ software architecture. At the bottom there are specialized reader classes for each dataset which handles low level access to the specific projects' data. The main library (gray)provides modules for visualization, interaction and data manipulation. }
+ \caption{\label{fig_arch} The BRAVIZ software architecture}
 \end{figure}
 
 
@@ -129,13 +130,13 @@ The current set of BRAVIZ applications can be divided in three categories. One s
 \begin{center}
 \includegraphics[width=0.4\textwidth]{figures/braviz_menu.PNG}
 \end{center}
- \caption{\label{fig_menu}This menu is currently used to access the different applications. It also provides facilities to review the available variables, saved scenarios, view and create samples, and to import to and export from spreadsheets.  }
+ \caption{\label{fig_menu} BRAVIZ main menu }
 \end{figure}
 
 
 \subsubsection{Descriptors for geometric data}
 
-The ROI Builder application (Figure \ref{fig_other_apps} a) provides an interface for helping experts position spherical ROI  (region of interest within brain) on each subject. These spheres are placed and sized with respect to images (from any modality) or cortex reconstructions. It is also possible to preview the fibers that cross the ROI, and the evaluate mean value inside the sphere of an scalar image, for example mean FA (fractional anisotropy) or mean T value associated with an fMRI test. 
+The ROI Builder application (Figure \ref{fig_roi}) provides an interface for helping experts position spherical ROI  (region of interest within brain) on each subject. These spheres are placed and sized with respect to images (from any modality) or cortex reconstructions. It is also possible to preview the fibers that cross the ROI, and the evaluate mean value inside the sphere of an scalar image, for example mean FA (fractional anisotropy) or mean T value associated with an fMRI test. 
 Linear and non-linear registration maps can be used to approximate the position and size of the sphere in other subjects. The expected workflow is positioning the ROI in one subject, extrapolating to a sample and correcting; and the interface was optimized to support it (buttons, hotkeys and visualization). Several ROIs can be used to select more complex bundles. All data generated in the application (ROIs, bundles and scalars) can be used on any other BRAVIZ application. 
 
 In addition, the current BRAVIZ implementation includes an application for making linear measurements (lengths) of anatomical structures, and an application for defining fiber bundles by combining ROIs and segmented structures through logical operations.
@@ -147,40 +148,48 @@ The Subject Overview application is shown in Figure \ref{fig_subject}. This tool
 
 A display of small multiples \cite{tufte_visual_1983}  brain views  of several subjects is useful for finding trends across a sample or for quality control to detect contaminated images. Subjects are ordered from left to right according to a chosen numerical variable and each row corresponds to a nominal variable. In the example presented in Figure \ref{fig_sample}, the two rows are men and women, and the ordering variable is the score on a math test. The bar-plot at the right shows the distribution of the variable (math test scoring) amongst the two groups (men vs. women) and is linked with the 3D views. If a more detailed view of any subject is required, the user may right click on that subject’s image to load the corresponding subject on other BRAVIZ applications.
 
-The fMRI Explorer application from Figure \ref{fig_other_apps} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects.
+The fMRI Explorer application from Figure \ref{fig_fmri} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects.
 
 \subsubsection{Numerical and Categorical Data Exploration}
 
 The ANOVA application (see Figure \ref{fig_anova}) provides direct access to these models implemented in \emph{R} \cite{team_r:_2012}. After fitting the model the main plot shows diagnostics (distribution of residuals and a scatter plot of residuals vs fitted values) for validating the ANOVA hypotheses (normally distributed noise with constant variance) and the table at the bottom right shows the resulting statistics. The application can also show box-plots and scatter-plots which provide additional insight on the relation between regressors (nominal and numeric variables and interaction terms) and outcome. Individual points in these plots may be identified by placing the mouse over them. Additionally, by right clicking on the, they can be loaded on other BRAVIZ applications to get additional information, this is especially useful for outliers.
 
-Figure \ref{fig_other_apps} b shows an alternative application which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The correlations application shown in figure \ref{fig_other_apps} d displays a list of variables, a correlations matrix of selected variables, and a scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. The parallel coordinates display from figure \ref{fig_other_apps} e provides another way of analyzing relations involving several variables.
+Figure \ref{fig_lm} shows an alternative application which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The correlations application shown in figure \ref{fig_correlations} displays a list of variables, a correlations matrix of selected variables, and a scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. The parallel coordinates display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables.
 
-\begin{figure*}
+\begin{figure}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{figures/subj_overview_full.PNG}
+\includegraphics[width=\linewidth]{figures/subj_overview_full.PNG}
 \end{center}
- \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context. At the bottom-left corner the coordinate system can be selected. }
-\end{figure*}
+ \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context}
+\end{figure}
 
-\begin{figure*}
+\begin{figure}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{figures/sample_overview.PNG}
-\end{center}
- \caption{\label{fig_sample} The sample overview application displays data of several subjects at the same time. Images are sorted from left to right according to a numerical variable (shown in the bars at the right) and arranged in columns by a categorical variable (colors)  }
-\end{figure*}
-
-\begin{figure*}
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/anova.PNG}
+\includegraphics[width=\linewidth]{figures/anova.PNG}
 \end{center}
  \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
-\end{figure*}
+\end{figure}
 
 \begin{figure*}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{figures/many_apps.png}
+\begin{subfigure}[b]{0.18\linewidth}
+\includegraphics[width=\textwidth]{figures/check_reg}
+\caption{\label{fig_check_reg}Check Registration}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.3\linewidth}
+\includegraphics[width=\textwidth]{figures/correlations}
+\caption{\label{fig_correlations}Correlations}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.22\linewidth}
+\includegraphics[width=\textwidth]{figures/roi_builder}
+\caption{ROI Builder\label{fig_roi}}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.18\linewidth}
+\includegraphics[width=\textwidth]{figures/fmri}
+\caption{FMRI Explorer\label{fig_fmri}}
+\end{subfigure}
 \end{center}
- \caption{\label{fig_other_apps} Some of Braviz applications:  A) ROI builder. B) Linear models. C) Explore fMRI. D) Correlations. E) Parallel coordinates}
+ \caption{\label{fig_other_apps} Examples of BRAVIZ Applications}
 \end{figure*}
 
 
@@ -209,22 +218,75 @@ Analyzing a complex dataset requires a significant amount of time, and therefore
 
 In addition to the common database where all tools read and store variables and geometric objects, there is a real time communication mechanism between applications. Through it all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even other devices; allowing researchers to get different perspectives on the data just by moving his eyes.
 
-\begin{figure*}
+\begin{figure}
 \begin{center}
-\includegraphics[width=0.9\textwidth]{figures/imagine.jpg}
+\includegraphics[width=\linewidth]{figures/imagine.jpg}
 \end{center}
- \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting. All of the applications are linked, this means that selecting a subject in one application will highlight or select that subject everywhere.}
-\end{figure*}
+ \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
+\end{figure}
 
 \section{Case Studies}
 
 In this research, a particularly representative case study, the KMC project, is introduced to both motivate the requirements for BRAVIZ and demonstrate its effectiveness. An original randomized study involved around 750 preterm babies was conducted in 1994 \cite{charpak_kangaroo_1997}. These children were followed during their first year \cite{charpak_randomized_2001}\cite{tessier_kangaroo_2009} of life and several clinical and socio-economical variables were registered. Forty of these children were re-located at fifteen years of age, and went through several neuropsychological tests, measuring attention, memory, reasoning skills and hand-eye coordination among others. They also went to vision, hearing, full medical examinations and TMS testing \cite{schneider_cerebral_2012}. Finally, they were scanned with Structural MRI, DTI and several fMRI paradigms. These images were processed with Freesurfer \cite{fischl_freesurfer_2012}, fsl\cite{jenkinson_fsl_2012}, camino\cite{cook_camino:_2006}, and spm\cite{friston_statistical_2006}; which extracted several numerical measurements and geometric structures as segmentation and tractography. All of this data was collected for testing specific hypotheses but the specialists involved in the study are also interested in analyzing it for unexpected relationships and trends; in other words, to perform an exploratory analysis.
 
 \subsection{Case 1}
-
 Group Analysis
 
+One of the applied tests was the WISC, which is divided in four indices: Verbal Comprehension, Peceptual Reasoning, Working Memory and Procession Speed. 	Language capacities are known to be associated with the posterior area of the corpus callosum, which can be analyzed in the KMC dataset. 
+
+The first task would be extracting an appropriate measure for the quality of the anterior area of the corpus callosum, which can be accomplished using the subject overview application. In the segmentation tab, the anterior and mid anterior sections of the corpus callosum can be selected. In this tab it is possible to calculate the volume or the mean FA (Fractional Anisotropy) inside these regions. However, in order to get a more robust measure, the tractography panel can be used to calculate the fibers that go through these regions. Then, the mean FA, mean length and number of streamlines in this bundle can be calculated. All of these measures are correlated between them, but the length of the fibers includes more information of the region, as streamline propagation is controlled by an FA threshold, consistent high FA values around the CC will cause streamlines to grow longer.
+
+After calculating this measure, the relation can be visualized using the Linear Model application. This initial plot is shown on Figure \ref{fig_lm}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/initial_corr}
+\end{center}
+ \caption{\label{fig_lm}An initial correlation with a prominent outlier}
+\end{figure}
+
+
+It is clear that the point at the extreme left is an outlier which has to be analyzed in more detail. By right clicking on it, a context menu will appear with the option of opening the respective subject on the Subject Overview Application, with the visualization used for calculating the measure. This view is shown on Figure \ref{fig_subject2}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/outlier_cc}
+\end{center}
+ \caption{\label{fig_subject2} Posterior Corpus Callosum Fibers from the outlier from Figure \ref{fig_lm}}
+\end{figure}
+
+
+The MRI image has significant noise, and there are several missing fibers in the Corpus Callosum. This is an unfortunate problem of with data acquisition, that can’t be corrected by the tool. Therefore we need to exclude this point from analysis. At this point it is worth asking if there are more subjects with similar quality problems. To check this the whole sample can be loaded in the Sample Overview application, in a view that shows the corpus callosum and associated fibers (Figure \ref{fig_parallel}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/quality_control_trim}
+\end{center}
+ \caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
+\end{figure}
+
+From this view, some additional subjects with fiber tracking issues are detected and excluded from the sample. The corrected sample (28 subjects) can then be shared with the Linear Model application which update the plot to the one of Figure \ref{fig_lm2}.
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/final_corr}
+\end{center}
+ \caption{\label{fig_lm2} Correlation from figure \ref{fig_lm} with corrected sample}
+\end{figure}
+
+
+This plot shows a slight correlation between the lengths of the fibers that go through the posterior of the CC with the Verbal Comprehension Score. By fitting the actual model it can be seen that it has an associated P value of 0.28; which is not significant, but is good enough to try testing this hypothesis in a dataset with more subjects.
+  
+
 \subsection{Case 2}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/parallel_coordinates}
+\end{center}
+ \caption{\label{fig_parallel}Parallel coordinates display configured for searching PVL cases}
+\end{figure}
 
 Subject details analysis
 
