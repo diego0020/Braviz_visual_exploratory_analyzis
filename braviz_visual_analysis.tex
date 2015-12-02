@@ -1,37 +1,11 @@
+\RequirePackage{fix-cm}
 
-\documentclass[utf8,paper]{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
+\documentclass[twocolumn]{svjour3} 
 \usepackage[utf8]{inputenc}
-%\usepackage{inputenc}
 \usepackage[english]{babel}
-%\DeclareUnicodeCharacter{2264}{$\leq$}
-%\DeclareUnicodeCharacter{002E}{$\leq$}
 \usepackage{letltxmacro}
+\usepackage{graphicx}
 
-\usepackage{stringenc}
-\usepackage{pdfescape}
-
-\makeatletter
-%\renewcommand*{\UTFviii@defined}[1]{%
-%  \ifx#1\relax
-%    \begingroup
-%      % Remove prefix "\u8:"
-%      \def\x##1:{}%
-%      % Extract Unicode char from command name
-%      % (utf8.def does not support surrogates)
-%      \edef\x{\expandafter\x\string#1}%
-%      \StringEncodingConvert\x\x{utf8}{utf16be}% convert to UTF-16BE
-%      % Hexadecimal representation
-%      \EdefEscapeHex\x\x
-%      % Enhanced error message
-%      \PackageError{inputenc}{Unicode\space char\space \string#1\space
-%                              (U+\x)\MessageBreak
-%                              not\space set\space up\space
-%                              for\space use\space with\space LaTeX}\@eha
-%    \endgroup
-%  \else\expandafter
-%    #1%
-%  \fi
-%}
 \makeatother
 
 \LetLtxMacro{\ORIGselectlanguage}{\selectlanguage}
@@ -54,86 +28,55 @@
 \let\l@eng\l@english
 \makeatother
 
-%\setcitestyle{square}
+\usepackage{letltxmacro}
+
+\usepackage{stringenc}
+\usepackage{pdfescape}
+\usepackage{subcaption}
+
 \usepackage{url,hyperref,lineno,microtype}
-\usepackage[onehalfspacing]{setspace}
-%\linenumbers
+\usepackage{mathptmx}
 
+\hyphenation{da-ta-base da-ta-bases ex-pla-na-to-ry ex-plo-ra-to-ry}
 
-% Leave a blank line between paragraphs instead of using \\
-
-
-\def\keyFont{\fontsize{8}{11}\helveticabold }
-\def\firstAuthorLast{Diego Angulo {et~al.}} %use et al only if is more than 1 author
-\def\Authors{Diego Andres Angulo\,$^{1,*}$, Jose Tiberio Hernandez\,$^{1}$ , James Oliver$^{2}$ and Cyril Schneider\,$^{3}$}
-% Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
-% If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
-\def\Address{$^{1}$ IMAGINE, Universidad de los Andes, Bogota , Colombia \\
-$^{2}$VRAC, Iowa State University, Ames , IA, Unites States
-\\
-$^{3}$CNS, CHUL, Quebec , QC, Canada  }
-% The Corresponding Author should be marked with an asterisk
-% Provide the exact contact address (this time including street name and city zip code) and email of the corresponding author
-\def\corrAuthor{Diego A. Angulo}
-\def\corrAddress{IMAGINE, Universidad de los Andes, Carrera 1 \# 18A -12 , Bogotá, Colombia}
-\def\corrEmail{da.angulo39@uniandes.edu.co}
+\journalname{The Visual Computer}
 
 \begin{document}
-\onecolumn
-\firstpage{1}
 
-\title[Braviz]{Braviz: Visual Exploratory Analysis of Brain Datasets} 
+\title{A multi-facetted visual analytics tool for exploratory analysis of human brain and function datasets} 
 
-\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
-\address{} %This field will be automatically populated
-\correspondance{} %This field will be automatically populated
+\author{Diego A. Angulo \and Jose T. Hernandez \and James Oliver \and Cyril Schneider}
 
-\extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
-%\extraAuth{corresponding Author2 \\ Laboratory X2, Institute X2, Department X2, Organization X2, Street X2, City X2 , State XX2 (only USA, Canada and Australia), Zip Code2, X2 Country X2, email2@uni2.edu}
+\institute{Diego A. Angulo \and Jose T. Hernandez
+\at IMAGINE, Universidad de los Andes, Carrera 1 \# 18A -12 , Bogotá, Colombia
+\and
+James Oliver
+\at VRAC, Iowa State University, Ames , IA, Unites States
+\and
+Cyril Schneider
+\at CNS, CHUL, Quebec , QC, Canada 
+}
+
 
 \maketitle
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% The sections below are for reference only.
-%%%
-%%% For Original Research Articles, Clinical Trial Articles, and Technology Reports the section headings should be those appropriate for your field and the research itself. It is recommended to organize your manuscript in the
-%%% following sections or their equivalents for your field:
-%%% Abstract, Introduction, Material and Methods, Results, and Discussion.
-%%% Please note that the Material and Methods section can be placed in any of the following ways: before Results, before Discussion or after Discussion.
-%%%
-%%%For information about Clinical Trial Registration, please go to http://www.frontiersin.org/about/AuthorGuidelines#ClinicalTrialRegistration
-%%%
-%%% For Clinical Case Studies the following sections are mandatory: Abstract, Introduction, Background, Discussion, and Concluding Remarks.
-%%%
-%%% For all other article types there are no mandatory sections.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{abstract}
-
-%%% Leave the Abstract empty if your article falls under any of the following categories: Editorial Book Review, Commentary, Field Grand Challenge, Opinion or specialty Grand Challenge.
-\section{}
-Brain research typically requires large amounts of data from different sources and often, of different nature. The use of different softwares and tools adapted to the nature of each data makes the researchers’ work cumbersome and time consuming. It follows that data is not used to its fullest potential thus limiting exploratory analysis. This paper presents an ancillary software tool called BRAVIZ that integrates interactive visualization with real-time statistical analyses thus giving access to multi-facetted neuroscience data and automating many cumbersome and error-prone tasks required to explore such data. BRAVIZ does not rely on abstract numerical indicators and rather emphasizes a brain image as the main object of the analysis process of individuals or groups data. Altogether, BRAVIZ’s options facilitate exploration of trends or relationships to gain an integrated view of the phenomena studied thus motivating discovery of new hypotheses. A case study is presented that incorporates brain structure and function outcomes together with different types of clinical data.
-
-
-
-\tiny
- \keyFont{ \section{Keywords:} Exploratory Analysis, Visual Analytics, Brain Data, MRI, Tractography, Cohorts } %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
+Brain research typically requires large amounts of data from different sources and often, of different nature. The use of different software and tools adapted to the nature of each data makes the researchers’ work cumbersome and time consuming. It follows that data is not used to its fullest potential thus limiting exploratory analysis. This paper presents an ancillary software tool called BRAVIZ that integrates interactive visualization with real-time statistical analyses thus giving access to multi-facetted neuroscience data and automating many cumbersome and error-prone tasks required to explore such data. BRAVIZ does not rely on abstract numerical indicators and rather emphasizes a brain image as the main object of the analysis process of individuals or groups data. Altogether, BRAVIZ’s options facilitate exploration of trends or relationships to gain an integrated view of the phenomena studied thus motivating discovery of new hypotheses. A case study is presented that incorporates brain structure and function outcomes together with different types of clinical data.
+\keywords{ Exploratory Analysis \and Visual Analytics \and Brain Data \and MRI \and Tractography \and Cohorts }
 \end{abstract}
-
-
-
 
 \section{Introduction}
 
 
 An important challenge in brain research, in both normal and pathological conditions, is to better understand the extent to which the physical structure of brain underlies the way it functions. The most common research procedure is characterized by experiments aimed at collecting data directed towards testing a former hypothesis. This confirmatory-like methodology imposes limitations on the way data is used, and it is typically used only once which is unfortunate since data acquisition is generally time and resource intensive.
 
-In the two last decades brain research data has increasingly been gathered in a more open fashion and many databases are now available to the public \citep{milham_open_2012}. In parallel, technical and policy levels of data collection, storage and share were rapidly enhanced \citep{eckersley_neuroscience_2003}, together with technologies to consolidate, search and access the data \citep{van_horn_is_2009, wood_harnessing_2014}. 
-This allows massive amounts of data to be consolidated into databases and searched in efficient ways.  In this way questions can be explored and large data pools can be mined for interesting relationships. This led to rapid changes in the way research can be conducted, i.e., a shift from hypothesis-driven research into data-driven research, where data is available first and research questions and hypotheses are formulated on the basis of the exploration of data.The methodology used in data driven research differs significantly from the one in hypothesis driven research. Data driven research seeks to find and extract meaningful insights from data using exploratory research \citep{tukey_we_1980} and has already proven efficiency in economics, terrorism prevention and business intelligence domains with large and heterogeneous data sets \cite{cook_illuminating_2005}. Exploratory research involves iterating through data several times, looking at it from different points of view, transforming data, searching for interesting subjects and measures, gathering details and performing group analyzes. These analysis tasks are carried out multiple times in different order as researchers learn more about the data. It is therefore convenient to provide facilities to make annotations and save findings, so that exploration can be continued later.
+In the two last decades brain research data has increasingly been gathered in a more open fashion and many databases are now available to the public \cite{milham_open_2012}. In parallel, technical and policy levels of data collection, storage and share were rapidly enhanced \cite{eckersley_neuroscience_2003}, together with technologies to consolidate, search and access the data \cite{van_horn_is_2009}\cite{wood_harnessing_2014}. 
+This allows massive amounts of data to be consolidated into databases and searched in efficient ways.  In this way questions can be explored and large data pools can be mined for interesting relationships. This led to rapid changes in the way research can be conducted, i.e., a shift from hypothesis-driven research into data-driven research, where data is available first and research questions and hypotheses are formulated on the basis of the exploration of data.The methodology used in data driven research differs significantly from the one in hypothesis driven research. Data driven research seeks to find and extract meaningful insights from data using exploratory research \cite{tukey_we_1980} and has already proven efficiency in economics, terrorism prevention and business intelligence domains with large and heterogeneous data sets \cite{cook_illuminating_2005}. Exploratory research involves iterating through data several times, looking at it from different points of view, transforming data, searching for interesting subjects and measures, gathering details and performing group analyzes. These analysis tasks are carried out multiple times in different order as researchers learn more about the data. It is therefore convenient to provide facilities to make annotations and save findings, so that exploration can be continued later.
 
 During this process several data patterns may likely lead to unexpected insights. Unfortunately, it is also likely that these patterns are caused by the unique noise structure of the current data and therefore cannot be generalized to the global population. Automatic data-mining algorithms can find thousands of possible relations , but true findings need to be backed up by science and current knowledge.  Therefore, domain experts must be involved in interpretation of insights. Moreover, insights that integrate data from different domains require experts from all these domains.
 
-Visual analytics \citep{keim_visual_2008} has emerged as a discipline which attempts to integrate statistics, machine learning, data mining and interactive data visualization with the objective of optimizing the use of data available for exploratory research. The analyst is acknowledged as the most important actor, and all tools are designed to support exploration and provide timely access to the required data and to informatics and statistics functions . Another principle in visual analytics is that analysts should keep focus on data and not on operational details of the tools. Therefore tools should provide the data and functionality to complete the task; while not relevant details and complex functionality should remain hidden. 
+Visual analytics \cite{keim_visual_2008} has emerged as a discipline which attempts to integrate statistics, machine learning, data mining and interactive data visualization with the objective of optimizing the use of data available for exploratory research. The analyst is acknowledged as the most important actor, and all tools are designed to support exploration and provide timely access to the required data and to informatics and statistics functions . Another principle in visual analytics is that analysts should keep focus on data and not on operational details of the tools. Therefore tools should provide the data and functionality to complete the task; while not relevant details and complex functionality should remain hidden. 
 					
 Exploratory brain research  could also benefit from visual analytics techniques. Indeed, brain function-related datasets are a combination of spatial (brain imaging) and non-spatial (clinical) outcomes that could be analyzed altogether to better understand the link between brain structure and function and human behavior. . Spatial outcomes interest for example brain anatomy acquired by means of magnetic resonance imaging (MRI), neural pathways trajectory acquired by diffusion weighted imaging(DWI) or patterns of cerebral activation in specific tasks and acquired by functional MRI (fMRI). Specialized tools implemented in visual analytics of brain could process imaging and model brain structure, build pathways, also produce statistical maps of activation patterns and neural connectome, all these measures being then correlated to other data of different nature such as neuropsychological.
 
@@ -144,41 +87,56 @@ The current paper introduces BRAVIZ, a software tool based on visual analytics a
 \section{RELATED WORK ON NEUROIMAGING AND EXPLORATORY ANALYSIS }
 
 
-Several tools can already be used by visual analytics applications to support research on neuroimaging. For example, Freesurfer \citep{fischl_freesurfer_2012}, FSL \citep{jenkinson_fsl_2012} and SPM \citep{friston_statistical_2006} segment, register and perform statistical testing of brain image data. \citep{fedorov_3d_2012}, Brain Visa \citep{cointepas_brainvisa:_2001} and ITKSnap \citep{yushkevich_user-guided_2006} are commonly used to integrate data from different image modalities (structural, diffusion-weighted, functional among others). They all proved to be efficient at processing bulk images in a pipeline, and visualizing data from a single subject, but they fall short when several iterations through the data are required. The interfaces proposed for statistical testing require extensive configuration, which is appropriate for testing specific hypotheses, but becomes cumbersome when several possibilities are to be explored. Efficient mechanisms for restricting analysis to a set of subjects after the analysis or going back to individuals’ details are missing. Complementary data loaded from tables can be used, but changing variables often means creating new tables and making them fit the requested format.
+Several tools can already be used by visual analytics applications to support research on neuroimaging. For example, Freesurfer \cite{fischl_freesurfer_2012}, FSL \cite{jenkinson_fsl_2012} and SPM \cite{friston_statistical_2006} segment, register and perform statistical testing of brain image data. \cite{fedorov_3d_2012}, Brain Visa \cite{cointepas_brainvisa:_2001} and ITKSnap \cite{yushkevich_user-guided_2006} are commonly used to integrate data from different image modalities (structural, diffusion-weighted, functional among others). They all proved to be efficient at processing bulk images in a pipeline, and visualizing data from a single subject, but they fall short when several iterations through the data are required. The interfaces proposed for statistical testing require extensive configuration, which is appropriate for testing specific hypotheses, but becomes cumbersome when several possibilities are to be explored. Efficient mechanisms for restricting analysis to a set of subjects after the analysis or going back to individuals’ details are missing. Complementary data loaded from tables can be used, but changing variables often means creating new tables and making them fit the requested format.
 
 
-Non-spatial information visualization tools like \citep{cook_interactive_2007}, and Tableau\citep{hanrahan_tableau_2003} can be used for interactive exploratory analysis. They support data transformations, model fitting, and interactive visualization. They also enable the detection of outliers (important in data-driven research whereas usually removed from hypothesis-driven research), get additional details, determine subgroups, and visualize in different ways (parallel coordinates, scatter plots, histograms, etc ) patterns and trends. However these tools do not integrate well with spatial data. Scalar data derived from original images can be added but there is no easy way to link back to original data or to explore spatial features that cannot be encoded into numerical variables.
+Non-spatial information visualization tools like \cite{cook_interactive_2007}, and Tableau\cite{hanrahan_tableau_2003} can be used for interactive exploratory analysis. They support data transformations, model fitting, and interactive visualization. They also enable the detection of outliers (important in data-driven research whereas usually removed from hypothesis-driven research), get additional details, determine subgroups, and visualize in different ways (parallel coordinates, scatter plots, histograms, etc ) patterns and trends. However these tools do not integrate well with spatial data. Scalar data derived from original images can be added but there is no easy way to link back to original data or to explore spatial features that cannot be encoded into numerical variables.
 
 
-INVIZIAN \citep{bowman_query-based_2011,bowman_feature-similarity_2012,bowman_visual_2012} uses ggobi options to explore in an abstract 3D space the relations between scalar values and anatomical features of large brain datasets. It provides an environment for exploratory research involving data from several databases targeted to hypotheses generation. However, it only works with automatic feature extraction from structural MRI. As BRAVIZ, INVIZIAN focuses on easing the user’s visual pattern search, but BRAVIZ targets projects including the analysis of different modalities of data from structural to functional MRI for example, and focuses on data generated by users rather than on machine learning. 
+INVIZIAN \cite{bowman_query-based_2011}\cite{bowman_feature-similarity_2012}\cite{bowman_visual_2012} uses ggobi options to explore in an abstract 3D space the relations between scalar values and anatomical features of large brain datasets. It provides an environment for exploratory research involving data from several databases targeted to hypotheses generation. However, it only works with automatic feature extraction from structural MRI. As BRAVIZ, INVIZIAN focuses on easing the user’s visual pattern search, but BRAVIZ targets projects including the analysis of different modalities of data from structural to functional MRI for example, and focuses on data generated by users rather than on machine learning. 
 
 
-A visual analysis tool for high dimensional genetic and clinical data is presented in \citep{hinterberg_peax:_2014}. The user explores the data by quickly iterating through several models that relate genetic data to clinical outcomes. Models are displayed as trees land linked with distributions of the selected parameters. Tools are provided to automatically searching for the most relevant parameters and therefore reducing the search space. This tool is optimized for a single type of data, a single type of model and a specific workflow. In contrast, BRAVIZ seeks to support multiple tasks, data types and workflows by providing a set of  applications to be used independently or combined for complex exploratory analyzes.
+A visual analysis tool for high dimensional genetic and clinical data is presented in \cite{hinterberg_peax:_2014}. The user explores the data by quickly iterating through several models that relate genetic data to clinical outcomes. Models are displayed as trees land linked with distributions of the selected parameters. Tools are provided to automatically searching for the most relevant parameters and therefore reducing the search space. This tool is optimized for a single type of data, a single type of model and a specific workflow. In contrast, BRAVIZ seeks to support multiple tasks, data types and workflows by providing a set of  applications to be used independently or combined for complex exploratory analyzes.
 	
 Even though multiple tools  exist for analysis and exploration of spatial and non-spatial data, the integration of multiple kinds/levels of analyzes and data in a single environment remains challenging. BRAVIZ provides a unique unified environment for analyzing spatial and non-spatial data interactively, and in this way, it supports data-driven research.
 
 \section{The BRAVIZ Proposal}
 
-Instead of a single large monolithic application, this research takes a more distributed approach and thus BRAVIZ is comprised of a set of applications tailored towards specific analysis tasks and data types, each of which integrates with a single common database and consistent user interface elements (see Figure \ref{fig_arch}). It provides facilities for loading spatial data (and transforming it into an appropriate coordinate system), for manipulating tabular data, for creating spatial and non-spatial interactive data visualizations, and for interacting with other applications and users. The types spatial-data supported by the current implementation are: structural MRI, diffusion MRI, functional MRI, label maps, tractography reconstructions, structure segmentation models and FreeSurfer cortex reconstructions. Non-spatial data can be any numeric or categorical variable, including clinical and socio-economic data.
+Instead of a single large monolithic application, this research takes a more distributed approach and thus BRAVIZ is comprised of a set of applications tailored towards specific analysis tasks and data types, each of which integrates with a single common database and consistent user interface elements (see Figure \ref{fig_arch}). It provides facilities for loading spatial data (and transforming it into an appropriate coordinate system), for manipulating tabular data, for creating spatial and non-spatial interactive data visualizations, and for interacting with other applications and users. The types spatial-data supported by the current implementation are: structural MRI, diffusion MRI, functional MRI, label maps, tractography reconstructions, structure segmentation models and Freesurfer cortex reconstructions. Non-spatial data can be any numeric or categorical variable, including clinical and socio-economic data.
 
 New BRAVIZ applications are implemented based on the common library, freeing developers from thinking about technical details related to data manipulation. An additional benefit is that all applications use the same data repository, which provides a channel for data sharing. Users can create custom samples, new variables and custom geometric structures and store them in the database, where they can be read by any other BRAVIZ application. An additional communication mechanism is provided that enables applications exchange data in real-time. In this way individual applications can be combined to solve more complex tasks.
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\linewidth]{figures/arquitecture.png}
+\end{center}
+ \caption{\label{fig_arch} The BRAVIZ software architecture}
+\end{figure}
+
+
 \subsection{Design and Development Methodology}
 
-A ``user centered'' approach \citep{fernandez_user-centered_2013,wassink_applying_2009} was used to design and implement BRAVIZ. The authors worked closely with brain researchers of several specialties, visited several labs and hospitals, and learned as much as possible about research workflows and the bottlenecks they contain. Prototypes were implemented in several iterations and shared with different domains’ experts, whose feedback motivated the design of the next generation.
+A ``user centered'' approach \cite{wassink_applying_2009} was used to design and implement BRAVIZ. The authors worked closely with brain researchers of several specialties, visited several labs and hospitals, and learned as much as possible about research workflows and the bottlenecks they contain. Prototypes were implemented in several iterations and shared with different domains’ experts, whose feedback motivated the design of the next generation.
 The initial stages of design focused on identifying the obstacles that affect exploratory analysis and communication between experts, and explored ways of mitigating them. The team of experts was composed of radiologists, psychiatrists, physicians, neurophysiologists, pediatricians, statisticians, engineers and economists.
-From analyzing the visualization options in current neuroimaging tools, as well as how domain experts used them, the BRAVIZ team learned what was expected from image viewers, i.e. which features were of importance to implement and which were seldom used. SPM \citep{friston_statistical_2007}, Osirix \citep{rosset_osirix:_2004} and 3D-Slicer \citep{fedorov_3d_2012} were the reference at this stage. For example, researchers needed to visualize several types of data in the same space and to be able to compare brain images between two subjects. Also obvious was the need to integrate spatial visualizations with non-spatial data for the same subject in order to be able to understand relationships. Another common need discovered in this exchange with expert users was the navigation from one subject to the other without having to re-start the visualization application per subject. This was satisfied by means of graphical user interfaces.
+From analyzing the visualization options in current neuroimaging tools, as well as how domain experts used them, the BRAVIZ team learned what was expected from image viewers, i.e. which features were of importance to implement and which were seldom used. SPM \cite{friston_statistical_2007}, Osirix \cite{rosset_osirix:_2004} and 3D-Slicer \cite{fedorov_3d_2012} were the reference at this stage. For example, researchers needed to visualize several types of data in the same space and to be able to compare brain images between two subjects. Also obvious was the need to integrate spatial visualizations with non-spatial data for the same subject in order to be able to understand relationships. Another common need discovered in this exchange with expert users was the navigation from one subject to the other without having to re-start the visualization application per subject. This was satisfied by means of graphical user interfaces.
 
 
 \subsection{Applications Set}
 
-%Not sure if this needs a different section, maybe it should be summarized into the description
 
 The current set of BRAVIZ applications can be divided in three categories. One set of applications measures or creates new descriptors from geometric data, one displays geometric data using other variables as context , and the third explores numerical and categorical data. This ensures different stages of the exploratory analysis process, respectively, data transformation, visualization and individuals to group analyzes. Additional modules can import and export data in spreadsheet format to interact with numerical and categorical data. All tools  are accessible from the graphical menu shown in Figure \ref{fig_menu}
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figures/braviz_menu.PNG}
+\end{center}
+ \caption{\label{fig_menu} BRAVIZ main menu }
+\end{figure}
+
+
 \subsubsection{Descriptors for geometric data}
 
-The ROI Builder application (Figure \ref{fig_other_apps} a) provides an interface for helping experts position spherical ROI  (region of interest within brain) on each subject. These spheres are placed and sized with respect to images (from any modality) or cortex reconstructions. It is also possible to preview the fibers that cross the ROI, and the evaluate mean value inside the sphere of an scalar image, for example mean FA (fractional anisotropy) or mean T value associated with an fMRI test. 
+The ROI Builder application (Figure \ref{fig_roi}) provides an interface for helping experts position spherical ROI  (region of interest within brain) on each subject. These spheres are placed and sized with respect to images (from any modality) or cortex reconstructions. It is also possible to preview the fibers that cross the ROI, and the evaluate mean value inside the sphere of an scalar image, for example mean FA (fractional anisotropy) or mean T value associated with an fMRI test. 
 Linear and non-linear registration maps can be used to approximate the position and size of the sphere in other subjects. The expected workflow is positioning the ROI in one subject, extrapolating to a sample and correcting; and the interface was optimized to support it (buttons, hotkeys and visualization). Several ROIs can be used to select more complex bundles. All data generated in the application (ROIs, bundles and scalars) can be used on any other BRAVIZ application. 
 
 In addition, the current BRAVIZ implementation includes an application for making linear measurements (lengths) of anatomical structures, and an application for defining fiber bundles by combining ROIs and segmented structures through logical operations.
@@ -188,15 +146,52 @@ In addition, the current BRAVIZ implementation includes an application for makin
 
 The Subject Overview application is shown in Figure \ref{fig_subject}. This tool  provides access to several kinds of spatial data in a unique 3D render and eases the rapid navigation from the data of one subject to one another. Geometrical features such as MRI volumes or mean fractional anisotropy of DTI in relation to a specific structure can be captured directly from this application and added into the database as a new variable. The application also shows the values for selected variables per subject as well as annotations from the users. This ensures an integrated overview of each case depending on the data feeding BRAVIZ.
 
-A display of small multiples \citep{tufte_visual_1983}  brain views  of several subjects is useful for finding trends across a sample or for quality control to detect contaminated images. Subjects are ordered from left to right according to a chosen numerical variable and each row corresponds to a nominal variable. In the example presented in Figure \ref{fig_sample}, the two rows are men and women, and the ordering variable is the score on a math test. The bar-plot at the right shows the distribution of the variable (math test scoring) amongst the two groups (men vs. women) and is linked with the 3D views. If a more detailed view of any subject is required, the user may right click on that subject’s image to load the corresponding subject on other BRAVIZ applications.
+A display of small multiples \cite{tufte_visual_1983}  brain views  of several subjects is useful for finding trends across a sample or for quality control to detect contaminated images. Subjects are ordered from left to right according to a chosen numerical variable and each row corresponds to a nominal variable. In the example presented in Figure \ref{fig_sample}, the two rows are men and women, and the ordering variable is the score on a math test. The bar-plot at the right shows the distribution of the variable (math test scoring) amongst the two groups (men vs. women) and is linked with the 3D views. If a more detailed view of any subject is required, the user may right click on that subject’s image to load the corresponding subject on other BRAVIZ applications.
 
-The fMRI Explorer application from Figure \ref{fig_other_apps} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects.
+The fMRI Explorer application from Figure \ref{fig_fmri} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects.
 
 \subsubsection{Numerical and Categorical Data Exploration}
 
-The ANOVA application (see Figure \ref{fig_anova}) provides direct access to these models implemented in \emph{R} \citep{team_r:_2012}. After fitting the model the main plot shows diagnostics (distribution of residuals and a scatter plot of residuals vs fitted values) for validating the ANOVA hypotheses (normally distributed noise with constant variance) and the table at the bottom right shows the resulting statistics. The application can also show box-plots and scatter-plots which provide additional insight on the relation between regressors (nominal and numeric variables and interaction terms) and outcome. Individual points in these plots may be identified by placing the mouse over them. Additionally, by right clicking on the, they can be loaded on other BRAVIZ applications to get additional information, this is especially useful for outliers.
+The ANOVA application (see Figure \ref{fig_anova}) provides direct access to these models implemented in \emph{R} \cite{team_r:_2012}. After fitting the model the main plot shows diagnostics (distribution of residuals and a scatter plot of residuals vs fitted values) for validating the ANOVA hypotheses (normally distributed noise with constant variance) and the table at the bottom right shows the resulting statistics. The application can also show box-plots and scatter-plots which provide additional insight on the relation between regressors (nominal and numeric variables and interaction terms) and outcome. Individual points in these plots may be identified by placing the mouse over them. Additionally, by right clicking on the, they can be loaded on other BRAVIZ applications to get additional information, this is especially useful for outliers.
 
-Figure \ref{fig_other_apps} b shows an alternative application which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The correlations application shown in figure \ref{fig_other_apps} d displays a list of variables, a correlations matrix of selected variables, and a scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. The parallel coordinates display from figure \ref{fig_other_apps} e provides another way of analyzing relations involving several variables.
+Figure \ref{fig_lm} shows an alternative application which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The correlations application shown in figure \ref{fig_correlations} displays a list of variables, a correlations matrix of selected variables, and a scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. The parallel coordinates display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/subj_overview_full.PNG}
+\end{center}
+ \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/anova.PNG}
+\end{center}
+ \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
+\end{figure}
+
+\begin{figure*}
+\begin{center}
+\begin{subfigure}[b]{0.18\linewidth}
+\includegraphics[width=\textwidth]{figures/check_reg}
+\caption{\label{fig_check_reg}Check Registration}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.3\linewidth}
+\includegraphics[width=\textwidth]{figures/correlations}
+\caption{\label{fig_correlations}Correlations}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.22\linewidth}
+\includegraphics[width=\textwidth]{figures/roi_builder}
+\caption{ROI Builder\label{fig_roi}}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.18\linewidth}
+\includegraphics[width=\textwidth]{figures/fmri}
+\caption{FMRI Explorer\label{fig_fmri}}
+\end{subfigure}
+\end{center}
+ \caption{\label{fig_other_apps} Examples of BRAVIZ Applications}
+\end{figure*}
+
 
 
 \subsection{Global BRAVIZ Features}
@@ -223,115 +218,108 @@ Analyzing a complex dataset requires a significant amount of time, and therefore
 
 In addition to the common database where all tools read and store variables and geometric objects, there is a real time communication mechanism between applications. Through it all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even other devices; allowing researchers to get different perspectives on the data just by moving his eyes.
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/imagine.jpg}
+\end{center}
+ \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
+\end{figure}
+
 \section{Case Studies}
 
-In this research, a particularly representative case study, the kmc project \citep{schneider_cerebral_2012}, is introduced to both motivate the requirements for BRAVIZ and demonstrate its effectiveness. The kmc study explores the effect of treatment options on premature births and data on subjects was collected from several fronts. The original randomized study involving about 750 preterm babies was conducted in 1994 \citep{charpak_kangaroo_1997}. These children were followed during their first year \citep{charpak_randomized_2001, tessier_kangaroo_2009} of life and several clinical and socio-economical variables were registered. Forty of the children from the original study were re-located at fifteen years of age, and the subjects went through several neuropsychological tests, measuring attention, memory, reasoning skills and hand-eye coordination among others. They also went to vision, hearing and full medical examinations.Finally, they were scanned with Structural MRI, DTI and several fMRI paradigms. These images were processed using freesurfer \citep{fischl_freesurfer_2012}, fsl\citep{jenkinson_fsl_2012}, camino\citep{cook_camino:_2006}, and spm\citep{friston_statistical_2006}; which extracted several numerical measurements and geometric structures as segmentations and tractographies. All of this data was collected for testing specific hypotheses but the specialists involved in the study are also interested in analyzing it for unexpected relationships and trends; in other words, to perform an exploratory analysis.
+In this research, a particularly representative case study, the KMC project, is introduced to both motivate the requirements for BRAVIZ and demonstrate its effectiveness. An original randomized study involved around 750 preterm babies was conducted in 1994 \cite{charpak_kangaroo_1997}. These children were followed during their first year \cite{charpak_randomized_2001}\cite{tessier_kangaroo_2009} of life and several clinical and socio-economical variables were registered. Forty of these children were re-located at fifteen years of age, and went through several neuropsychological tests, measuring attention, memory, reasoning skills and hand-eye coordination among others. They also went to vision, hearing, full medical examinations and TMS testing \cite{schneider_cerebral_2012}. Finally, they were scanned with Structural MRI, DTI and several fMRI paradigms. These images were processed with Freesurfer \cite{fischl_freesurfer_2012}, fsl\cite{jenkinson_fsl_2012}, camino\cite{cook_camino:_2006}, and spm\cite{friston_statistical_2006}; which extracted several numerical measurements and geometric structures as segmentation and tractography. All of this data was collected for testing specific hypotheses but the specialists involved in the study are also interested in analyzing it for unexpected relationships and trends; in other words, to perform an exploratory analysis.
 
+\subsection{Case 1}
+Group Analysis
+
+One of the applied tests was the WISC, which is divided in four indices: Verbal Comprehension, Peceptual Reasoning, Working Memory and Procession Speed. 	Language capacities are known to be associated with the posterior area of the corpus callosum, which can be analyzed in the KMC dataset. 
+
+The first task would be extracting an appropriate measure for the quality of the anterior area of the corpus callosum, which can be accomplished using the subject overview application. In the segmentation tab, the anterior and mid anterior sections of the corpus callosum can be selected. In this tab it is possible to calculate the volume or the mean FA (Fractional Anisotropy) inside these regions. However, in order to get a more robust measure, the tractography panel can be used to calculate the fibers that go through these regions. Then, the mean FA, mean length and number of streamlines in this bundle can be calculated. All of these measures are correlated between them, but the length of the fibers includes more information of the region, as streamline propagation is controlled by an FA threshold, consistent high FA values around the CC will cause streamlines to grow longer.
+
+After calculating this measure, the relation can be visualized using the Linear Model application. This initial plot is shown on Figure \ref{fig_lm}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/initial_corr}
+\end{center}
+ \caption{\label{fig_lm}An initial correlation with a prominent outlier}
+\end{figure}
+
+
+It is clear that the point at the extreme left is an outlier which has to be analyzed in more detail. By right clicking on it, a context menu will appear with the option of opening the respective subject on the Subject Overview Application, with the visualization used for calculating the measure. This view is shown on Figure \ref{fig_subject2}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/outlier_cc}
+\end{center}
+ \caption{\label{fig_subject2} Posterior Corpus Callosum Fibers from the outlier from Figure \ref{fig_lm}}
+\end{figure}
+
+
+The MRI image has significant noise, and there are several missing fibers in the Corpus Callosum. This is an unfortunate problem of with data acquisition, that can’t be corrected by the tool. Therefore we need to exclude this point from analysis. At this point it is worth asking if there are more subjects with similar quality problems. To check this the whole sample can be loaded in the Sample Overview application, in a view that shows the corpus callosum and associated fibers (Figure \ref{fig_parallel}).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/quality_control_trim}
+\end{center}
+ \caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
+\end{figure}
+
+From this view, some additional subjects with fiber tracking issues are detected and excluded from the sample. The corrected sample (28 subjects) can then be shared with the Linear Model application which update the plot to the one of Figure \ref{fig_lm2}.
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/final_corr}
+\end{center}
+ \caption{\label{fig_lm2} Correlation from figure \ref{fig_lm} with corrected sample}
+\end{figure}
+
+
+This plot shows a slight correlation between the lengths of the fibers that go through the posterior of the CC with the Verbal Comprehension Score. By fitting the actual model it can be seen that it has an associated P value of 0.28; which is not significant, but is good enough to try testing this hypothesis in a dataset with more subjects.
+  
+
+\subsection{Case 2}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{figures/cases/parallel_coordinates}
+\end{center}
+ \caption{\label{fig_parallel}Parallel coordinates display configured for searching PVL cases}
+\end{figure}
+
+Subject details analysis
 
 \section{Discussion}
 \label{sec:disc}
-%Several users who have contributed to the development of BRAVIZ now use it regularly as part of their work. They continue experimenting with the tool and proposing improvements. Many users, especially those without expertise in image processing, like how they now can create and analyze spatial data on their own.  By using BRAVIZ it is straightforward to explore the data and answer questions. It is also common for more complex ideas to occur to the user while exploring. While exploring in this fashion, experts often discover new ways to use the processing power of tools like Freesurfer or SPM; and therefore take better advantage of them.
-%
-%Even without looking at spatial data, users enjoy getting visualizations of nominal and numerical variables instantaneously, which allows them to explore the dataset efficiently. BRAVIZ tools have proven to be easy to learn. It is designed to provide a starting point for facilitating exploratory analysis, and we expect that afterward users may move to more powerful and complex tools.
-%
-%The features that BRAVIZ users appreciated the most were quick identification of outliers and being able to find nominal and numerical data together with the corresponding image data. An unexpected result was that by exploring the data with BRAVIZ several data problems were discovered and many of them could be fixed by going back to the raw data or processing again. 
-%
-%The examples shown here used a rather small database, but BRAVIZ has been used successfully in a similar study with around 400 subjects. At this scale most of the visualizations still work, but for larger datasets new approaches must be developed. 
-%
-%Some researchers are used to working only in confirmatory analyses, and are very cautious about exploring data freely. Sometimes they fear that exploration might invalidate any chance of publishing results. However as long as care is taken on interpreting the results of exploration and hypotheses are tested on independent datasets there is no danger in doing exploratory analyses. It is well known that the amount of data available for analysis today is enormous, but better tools are needed to navigate and explore it. There is also an opportunity to change workflows to adjust to this new reality and take the best advantage of the available data. Data mining tools and visual exploration of data has been successfully applied in several other areas, such as business and law enforcement, and will continue to gain popularity in brain research. 
-%
-%Collaboration between experts is improved by having visualizations available to explain ideas. By having several applications open, large display real-estate can be leveraged (see Figure \ref{fig_imagine}). This works best when several experts are looking from different perspectives, and in this way unexpected elements and multidimensional trends can be spotted.
-%
-%%Future work
-%%Web based?
-%
-%In its current state BRAVIZ runs on the user's machine, and the installation process is not trivial. In the future it should transform into a webservice, running no a cloud environment, and available through a standard web-browser. However, the technology for displaying interactive 3D images on a web environment is not mature enough. Nevertheless, technologies as Brainbrowser\citep{sherif_brainbrowser:_2014}, and paraview\citep{ahrens_36_2005} are advancing fast, and probably in the near future it will be able to migrate to such a platform. 
 
-% Though the system is built from several small applications, they are designed to work together synchronously in order to support more complex tasks. Subsamples, variables and subjects of interest can be shared across tools and among colleagues. Altogether, this creates a flexible environment that can be adapted to several kinds of data, questions, workflows and experts. These features, combined with having all data and analysis tools a couple of clicks away; provides a pleasant and efficient exploratory analysis environment. 
+The two presented cases illustrate how BRAVIZ can be used to increase understanding of a real data-set. 
+It allows researchers to directly access all data, letting them explore it efficiently and retrieving data relevant to their questions . By combining several tools, users can perform group level analyzes without loosing track of individual subjects. Getting additional details from an interesting subject requires only one click. 
 
+As most real datasets, the one considered here is not perfect. Researchers should always have access to raw and processed data so that they can be certain of the veracity of results. This data should be rapidly accessible so that researchers can spend more time exploring data and not performing quality controls. When pathological datums are found, they should be removed from analysis, annotated or fixed. 
 
-%\bibliographystyle{frontiersinSCNS_ENG_HUMS} % for Science, Engineering and Humanities and Social Sciences articles, for Humanities and Social Sciences articles please include page numbers in the in-text citations
-\bibliographystyle{frontiersinHLTH&FPHY} % for Health and Physics articles
+Combining clinical and geometric data with the unstructured clinical history lets researchers reconstruct the full history of each subject. This is valuable for making accurate interpretations of results, or for deciding if a certain subject should be or not included in the sample for a certain analysis. BRAVIZ provides several tools for manipulating the sample, by applying filters or adding or removing individual points, these samples can be either saved into the database for future use or used instantaneously in statistical models or group data visualizations. Researchers can thus iterate through several samples, several models, several measures and several views in short amounts of time; gaining understanding of the data-set and raising questions and hypotheses for future projects.
+
+\section{Conclussion and Future Work}
+
+BRAVIZ was designed as a tool for exploratory analysis of datasets which combine clinical and neuro-image data. Instead of a single application, it is implemented as a set of applications which can be used at different points of exploratory analysis. Some applications are designed to extract scalar measures from image data, others provide detailed views of particular subjects or data types and others permit analyzing groups of subjects. Custom samples of subjects can be defined and used across all applications to perform a focused analysis. When several applications are running together, all of them can keep focus on the same subject, as shown on Figure \ref{fig_imagine}, which provides multiple points of view of the same subject that helps to understand how the different dimensions interact with each other. 
+
+Even though the presented cases relied on a particular dataset, the architecture (see Figure \ref{fig_arch}) of the tool was designed with portability in mind. All access to geometrical is performed inside a single module which provides a high level interface to the upper components of the system. By implementing several of these modules, the system can work on top of several projects which may different mechanisms, layouts and formats for storing spatial data. Currently the system has also been tested on a larger project from the Kangaroo Foundation which includes about 450 subjects. 
+
+The architecture was also designed to make implementation of additional applications easy, and keeping all low level data manipulation operations in a shared library. Thus, in the future more analysis tasks will be supported by specific applications. Several researchers have also expressed their interest in integrating other kinds of data, for example EEG signals or connection graphs \cite{rubinov_complex_2010} derived from DWI or fMRI. 
+
+Finally, BRAVIZ needs to be tested in other datasets by researchers in other groups. The tool is licensed under a LGPL license and the source code is available at \url{diego0020.github.io/braviz} . 
+
+As the tendency of collecting data in an open fashion and making it available to the general community grows, visual exploratory analysis tools like BRAVIZ and INVIZIAN will become more important. Acquiring data will no longer be a bottleneck for research, and a larger effort can be put in analyzing existing data. This will lead to an increase in productivity of scientists everywhere, as well as a more optimal use of collected data, which summed will increase the speed at which knowledge is generated.
+
+\begin{acknowledgements}
+
+This work was made possible by the Kangaroo Foundation. They generously provided a rich dataset, and the experts who work at the foundation were always willing to test prototypes and provide valuable feedback.
+
+\end{acknowledgements}
+
+\bibliographystyle{spmpsci} 
 \bibliography{zotero}
-
-%%% Upload the *bib file along with the *tex file and PDF on submission if the bibliography is not in the main *tex file
-
-\section*{Implementation (Appendix)}
-
-BRAVIZ is implemented in Python, a popular language in the neuroscience community \citep{gorgolewski_nipype:_2011, garyfallidis_dipy_2014}, which provides powerful plotting, rendering, and data manipulation libraries. The trade-off is a loss of performance compared to compiled languages, but so far interactivity has been maintained by letting VTK\citep{schroeder_vtk_1998} and Numpy\citep{van_der_walt_numpy_2011} do the most intensive operations. It has been tested in Mac, Windows and Linux.
-
-
-The ``Read and Filter'' module handles all access to the file system or network. Each BRAVIZ project is composed of a SQLite database, and spatial data. This module provides other useful functions like attaching scalars to geometric objects, filtering fiber bundles and transforming between coordinate systems. Underneath it relies heavily on nibabel\citep{gorgolewski_nipype:_2011}, numpy\citep{van_der_walt_numpy_2011} , scipy\citep{jones_scipy:_2001,oliphant_python_2007} and VTK\citep{schroeder_vtk_1998} . Notice that this module handles all the necessary transformations of spatial data, and exposes a high level interface to the upper layers. In this way application designers can focus on visualization and interaction as required by end users and let the library handle registration and other low level operations. The module also provides access to numerical and categorical variables that are stored in a database. Pandas' DataFrames\citep{mckinney_data_2010} are the preferred way to manipulate this data. The database also holds annotations, scenarios, user defined geometrical objects and analysis history. 
-
-Specific project reader modules can be created to adjust to the layout, file names and other peculiarities of each research project. The active project, favorite variables and favorite subject and other preferences are specified through a configuration file.
-By accessing data through this module, developers can create applications that can be reused in several projects. 
-
-The ``visualization'' module provides reusable components for visualizing spatial and non-spatial data. VTK is used for all the 3D visualization while 2D visualization is achieved through matplotlib \citep{hunter_matplotlib:_2007} and seaborn\citep{michael_waskom_seaborn:_2014} in native applications, or through D3 \citep{bostock_d3_2011} in web applications.
-
-The ``interaction'' module contains, among others, several reusable user interface components, functions for doing statistical calculations in R\citep{team_r:_2012, gautier_rpy2:_2008} and additional processing for geometric data, and connection mechanisms between applications. The current version uses PyQt4 for the user interface with some web based visualizations built using the tornado framework \citep{server_source_2008}. 
-
-Individual applications use a different mixture of the provided modules depending on user requirements. Most of the code inside each application should be about user interaction and coordination between visualizations. If new data processing algorithms or visualizations are required they should be implemented as reusable components in the library so that future applications can benefit from them. The project is licensed under a lesser general public license (LGPL) and its source code is available at \url{https://bitbucket.org/dieg0020/braviz}, together with installation instructions. Additional documentation is available at \url{http://diego0020.github.io/braviz}.
-
-\section*{Acknowledgments}
-
-\section*{Figures}
-
-%%% Use this if adding the figures directly in the mansucript, if so, please remember to also upload the files when submitting your article
-%%% There is no need for adding the file termination, as long as you indicate where the file is saved. In the examples below the files (logo1.jpg and logo2.eps) are in the Frontiers LaTeX folder
-%%% If using *.tif files convert them to .jpg or .png
-
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/arquitecture.png}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_arch} Figure \arabic{figure}.}{The BRAVIZ software architecture. At the bottom there are specialized reader classes for each dataset which handles low level access to the specific projects' data. The main library (gray)provides modules for visualization, interaction and data manipulation. }
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.4\textwidth]{figures/braviz_menu.PNG}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_menu} Figure \arabic{figure}.}{This menu is currently used to access the different applications. It also provides facilities to review the available variables, saved scenarios, view and create samples, and to import to and export from spreadsheets.  }
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/subj_overview_full.PNG}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_subject} Figure \arabic{figure}.}{Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context. At the bottom-left corner the coordinate system can be selected. }
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/sample_overview.PNG}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_sample} Figure \arabic{figure}.}{The sample overview application displays data of several subjects at the same time. Images are sorted from left to right according to a numerical variable (shown in the bars at the right) and arranged in columns by a categorical variable (colors)  }
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/anova.PNG}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_anova} Figure \arabic{figure}.}{An application for performing ANOVA analyses using the data in the BRAVIZ database.}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/many_apps.png}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_other_apps} Figure \arabic{figure}.}{Some of Braviz applications:  A) ROI builder. B) Linear models. C) Explore fMRI. D) Correlations. E) Parallel coordinates}
-\end{figure}
-
-
-
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.9\textwidth]{figures/imagine.jpg}
-\end{center}
- \textbf{\refstepcounter{figure}\label{fig_imagine} Figure \arabic{figure}.}{An example of BRAVIZ running on a large display in a collaborative setting. All of the applications are linked, this means that selecting a subject in one application will highlight or select that subject everywhere.}
-\end{figure}
-
 
 
 \end{document}
