@@ -17,28 +17,10 @@ Class=LaTeXView
 Document=braviz_visual_analysis.tex
 
 [Frame0_View0,0]
-TopLine=462
-Cursor=36314
-
-[Frame1]
-Flags=0
-ShowCmd=1
-MinPos.x=-1
-MinPos.y=-1
-MaxPos.x=-1
-MaxPos.y=-1
-NormalPos.left=4
-NormalPos.top=26
-NormalPos.right=1318
-NormalPos.bottom=506
-Class=LaTeXView
-Document=braviz_visual_analysis.aux
-
-[Frame1_View0,0]
-TopLine=0
-Cursor=0
+TopLine=155
+Cursor=10766
 
 [SessionInfo]
-FrameCount=2
+FrameCount=1
 ActiveFrame=0
 
