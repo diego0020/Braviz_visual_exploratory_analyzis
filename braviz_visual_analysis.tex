@@ -263,6 +263,16 @@ In addition to the common database where all tools read and store variables and 
  \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
 \end{figure}
 
+%Review 1a
+\subsection{Importing data}
+
+As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications.
+
+On the other hand, BRAVIZ accesses geometric data through the project reader interface (see figure \ref{fig_arch}), which can have different implementations for different projects. All the upper layers, including applications, will ask reader objects for data by specifying the type of data, the subject id, the coordinate space  and additional parameters proper of each data type; for example scalars for tractography or contrast for FMRI maps. This object is also responsible of returning indices of available data. Internally the class must be able to load the appropriate data, apply the correct transformations and finally return the requested data as a python object. 
+
+For example, in the KMC project all data was stored on hard disk, using NIFTI format for images, and vtk format for tractography and segmented structures. Files are stored in such a layout that the full route for each file can be determined based on subject id. Transformation matrices and warp fields can also be located, and are internally applied.
+
+In order to read data from different sources new reader classes may be implemented. In this way it would be possible to read dicom objects, read data using a network api or connect directly to a PACS. The nibabel and vtk python libraries provide functions to load data stored in several formats, making the implementation of these classes feasible in a short amount of time.
 
 \section{Case Studies}
 
