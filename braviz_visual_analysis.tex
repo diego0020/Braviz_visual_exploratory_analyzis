@@ -247,13 +247,19 @@ A common task in exploratory research is analyzing similarities and differences 
 
 Often some properties of the data will only apply to a specific group/sample of subjects. In BRAVIZ samples are a central component of every analysis. They can be defined by using filters on variable values, manually adding and removing specific subjects, taking random subsets, or combining samples through set operations (union, intersection and difference). These samples can then be used throughout the tool, which makes repeating analyzes for different groups easy. They can also be modified, for example to remove pathological data points, and the results of the modification visualized in real time. In contrast, most tools oriented towards confirmatory research require the sample to be set at the start of the analysis.
 
+\subsubsection{Working with incomplete data}
+
+It is common for some of the values or geometric data to be missing for some subjects. Applications that show geometric data will detect missing data and hide the corresponding object from the scene, showing also a warning in the status bar. All statistical visualizations will display the number of missing points, and will ignore them when performing calculations. Finally the interface for building sample using filters provide a checkbox that allow the user to include or exclude subjects with a missing value for the specific variable.
+
 \subsubsection{Supporting Long Workflows}
 
 Analyzing a complex dataset requires a significant amount of time, and will likely be spit in multiple sessions. In order to ease re-using previous work, BRAVIZ applications allow saving and restoring their state using custom names and descriptions, and attaching textual annotations to subjects, variables and geometric objects (for example ROIs). In addition, a log of each analysis session is kept, which can be reviewed and annotated using a web interface. These features also allow other researchers to understand the meaning of variables, geometric structures and scenarios created by colleagues thereby fostering collaboration. 
 
 \subsubsection{Integrating Tools}
 
-In addition to the common database where all tools read and store variables and geometric objects, BRAVIZ includes a real time communication mechanism. Through it, all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even different devices; allowing researchers to get different perspectives of the data just by moving their eyes. 
+In addition to the common database where all tools read and store variables and geometric objects, BRAVIZ includes a real time communication mechanism. Through it, all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even different devices; allowing researchers to get different perspectives of the data just by moving their eyes. Note that applications can block specific messages to keep the application from changing if the user prefers it. Also some actions that are likely to produce important changes, will ask the user for confirmation, giving him the option to always accept or always ignore the specific kind of messages.
+
+Multiple users can work with the same data  which allows them to share date. In this way one user may create a new measurement and make it available for the rest of the group. Real-time communication are implemented through TCP, therefore it would be possible to link together two workstations. We have not yet explored if this would provide a convenient user experience.
 
 
 \begin{figure}
@@ -266,13 +272,15 @@ In addition to the common database where all tools read and store variables and 
 %Review 1a
 \subsection{Importing data}
 
-As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications.
+As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications. The python terminal or iPython notebooks \autocite{} may also be used to interactively read data from other sources (for example a web site or by parsing DICOM headers), transform it into a pandas dataframe, and save it into the BRAVIZ database using a high level API.
 
 On the other hand, BRAVIZ accesses geometric data through the project reader interface (see figure \ref{fig_arch}), which can have different implementations for different projects. All the upper layers, including applications, will ask reader objects for data by specifying the type of data, the subject id, the coordinate space  and additional parameters proper of each data type; for example scalars for tractography or contrast for FMRI maps. This object is also responsible of returning indices of available data. Internally the class must be able to load the appropriate data, apply the correct transformations and finally return the requested data as a python object. 
 
 For example, in the KMC project all data was stored on hard disk, using NIFTI format for images, and vtk format for tractography and segmented structures. Files are stored in such a layout that the full route for each file can be determined based on subject id. Transformation matrices and warp fields can also be located, and are internally applied.
 
 In order to read data from different sources new reader classes may be implemented. In this way it would be possible to read dicom objects, read data using a network api or connect directly to a PACS. The nibabel and vtk python libraries provide functions to load data stored in several formats, making the implementation of these classes feasible in a short amount of time.
+
+Notice that the task of setting up BRAVIZ to work with a new data-set requires some level of skill, and should usually be done by engineers. Recall that BRAVIZ is targeted at interdisciplinary teams and one of the goals is allowing the members of these teams to work together efficiently.
 
 \section{Case Studies}
 
