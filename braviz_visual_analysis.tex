@@ -167,7 +167,7 @@ The Subject Overview application is shown in Figure \ref{fig_subject}. This tool
 
 A small multiples display \cite{tufte_visual_1983} with views  of several subjects is useful for finding trends across a sample or for quality control to detect contaminated images. Subjects are ordered from left to right according to a chosen numerical variable and each row corresponds to a nominal variable. In the example presented in Figure \ref{fig_sample}, the two rows are men and women, and the ordering variable is the score on a math test. The bar-plot at the right shows the distribution of the variable (math test scoring) amongst the two groups (men vs. women) and is linked with the 3D views. If a more detailed view of any subject is required, the user may right click on that subject’s image to load the corresponding subject on other BRAVIZ applications.
 
-The fMRI Explorer application from Figure \ref{fig_fmri} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects.
+The fMRI Explorer application from Figure \ref{fig_fmri} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects. The Check Resgistration application allows the user to visualize simultaneously two images, from different modalities or different subjects, in a given coordinate system, with the purpose of assessing the quality of the registration.
 
 \begin{figure}
 \begin{center}
@@ -281,7 +281,7 @@ Multiple users can work with the same data  which allows them to share date. In 
 \subsection{Reading data into BRAVIZ}
 
 
-\subsubsection{Data Preprocessing}
+\subsubsection{Preprocessing}
 
 While BRAVIZ integrates some basic image processing algorithms, the focus is on interactive visualization. Therefore, users should perform data pre-processing using third party tools before starting with BRAVIZ. As a minimum BRAVIZ expects registration matrices linking the different coordinate systems present in images. Running the FreeSurfer \emph{recon_all} pipeline will provide BRAVIZ segmentation, cortical parcellation and Talairach registration, which is basic for most of visualizations. 
 
@@ -294,6 +294,8 @@ In order to run these pre-processing it is suggested to make use of a pipeline s
 %Review 1a
 
 As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications. The python terminal or iPython notebooks \cite{} may also be used to interactively read data from other sources (for example scraping web sites or by parsing DICOM headers), transform it into a pandas dataframe, and save it into the BRAVIZ database using a high level API.
+
+Note that additional data may be added at any point in time. In addition, non-spatial data can also be easily exported from a graphical interface to an spreadsheet. This allows the user to take some variable of interest out of BRAVIZ, perform calculation on an external tool, and import the results back into BRAVIZ.
 
 On the other hand, BRAVIZ accesses geometric data through the project reader interface (see figure \ref{fig_arch}), which can have different implementations for different projects. All the upper layers, including applications, will ask reader objects for data by specifying the type of data, the subject id, the coordinate space  and additional parameters proper of each data type; for example scalars for tractography or contrast for FMRI maps. This object is also responsible of returning indices of available data. Internally the class must be able to load the appropriate data, apply the correct transformations and finally return the requested data as a python object. 
 
