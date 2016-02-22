@@ -131,6 +131,7 @@ New BRAVIZ applications are implemented based on the common library, freeing dev
  \caption{\label{fig_arch} The BRAVIZ software architecture}
 \end{figure}
 
+Note that this model is based on the Model-View-Controller pattern, where the bottom layer (Project reader) together with the actual data storage make up the model. The rest of the BRAVIZ Library will make up the controller, and each application makes up a different view.
 
 \subsection{Design and Development Methodology}
 
@@ -229,9 +230,23 @@ Figure \ref{fig_lm} shows an alternative application which fits standard linear 
 
 
 
-\subsection{Global BRAVIZ Features}
 
-In addition to the unique features of each BRAVIZ application, the whole tool provides features that directly support integrated exploratory analyzes. In addition, tools are designed to be used together and combined to complete complex analyzes.
+
+
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{imagine.jpg}
+\end{center}
+ \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
+\end{figure}
+
+
+\subsection{The Braviz library}
+
+%\subsection{Global BRAVIZ Features}
+In addition to the unique features of each BRAVIZ application, the whole tool provides features that directly support integrated exploratory analyzes. In addition, tools are designed to be used together and combined to complete complex analyzes. The BRAVIZ library supports these features and allows applications to communicate and behave consistently. 
 
 \subsubsection{Linking Clinical and Structural Data}
 
@@ -262,17 +277,23 @@ In addition to the common database where all tools read and store variables and 
 Multiple users can work with the same data  which allows them to share date. In this way one user may create a new measurement and make it available for the rest of the group. Real-time communication are implemented through TCP, therefore it would be possible to link together two workstations. We have not yet explored if this would provide a convenient user experience.
 
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{imagine.jpg}
-\end{center}
- \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
-\end{figure}
+
+\subsection{Reading data into BRAVIZ}
+
+
+\subsubsection{Data Preprocessing}
+
+While BRAVIZ integrates some basic image processing algorithms, the focus is on interactive visualization. Therefore, users should perform data pre-processing using third party tools before starting with BRAVIZ. As a minimum BRAVIZ expects registration matrices linking the different coordinate systems present in images. Running the FreeSurfer \emph{recon_all} pipeline will provide BRAVIZ segmentation, cortical parcellation and Talairach registration, which is basic for most of visualizations. 
+
+In addition, BRAVIZ can read SPM statistical maps and warp fields. It is also able to read tractography output ( at the moment in vtk format ) as well as Tracula bundles. Finally, BRAVIZ can read any type of scalar map, for example those derived from the DTI model.
+
+In order to run these pre-processing it is suggested to make use of a pipeline system such as LONI pipeline \cite{} or NiPype \cite{}.
+
+\subsubsection{Importing Data}
 
 %Review 1a
-\subsection{Importing data}
 
-As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications. The python terminal or iPython notebooks \autocite{} may also be used to interactively read data from other sources (for example a web site or by parsing DICOM headers), transform it into a pandas dataframe, and save it into the BRAVIZ database using a high level API.
+As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications. The python terminal or iPython notebooks \cite{} may also be used to interactively read data from other sources (for example scraping web sites or by parsing DICOM headers), transform it into a pandas dataframe, and save it into the BRAVIZ database using a high level API.
 
 On the other hand, BRAVIZ accesses geometric data through the project reader interface (see figure \ref{fig_arch}), which can have different implementations for different projects. All the upper layers, including applications, will ask reader objects for data by specifying the type of data, the subject id, the coordinate space  and additional parameters proper of each data type; for example scalars for tractography or contrast for FMRI maps. This object is also responsible of returning indices of available data. Internally the class must be able to load the appropriate data, apply the correct transformations and finally return the requested data as a python object. 
 
@@ -280,7 +301,12 @@ For example, in the KMC project all data was stored on hard disk, using NIFTI fo
 
 In order to read data from different sources new reader classes may be implemented. In this way it would be possible to read dicom objects, read data using a network api or connect directly to a PACS. The nibabel and vtk python libraries provide functions to load data stored in several formats, making the implementation of these classes feasible in a short amount of time.
 
-Notice that the task of setting up BRAVIZ to work with a new data-set requires some level of skill, and should usually be done by engineers. Recall that BRAVIZ is targeted at interdisciplinary teams and one of the goals is allowing the members of these teams to work together efficiently.
+Notice that the task of setting up BRAVIZ to work with a new data-set requires some level of skill, and should usually be done by engineers. Recall that BRAVIZ is targeted at interdisciplinary teams and one of the goals is allowing the members of these teams to work together efficiently. Additional details of how BRAVIZ handles spatial and non-spatial data may be found on the project's documentation. 
+
+
+
+
+
 
 \section{Case Studies}
 
