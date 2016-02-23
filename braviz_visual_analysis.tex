@@ -184,6 +184,42 @@ The ANOVA application (see Figure \ref{fig_anova}) provides direct access to the
 
 Figure \ref{fig_lm} shows an alternative application which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The correlations application shown in figure \ref{fig_correlations} displays a list of variables, a correlations matrix of selected variables, and scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. The parallel coordinates display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables.
 
+\subsection{Common Features}
+
+%\subsection{Global BRAVIZ Features}
+In addition to the unique features of each BRAVIZ application, the whole tool provides features that directly support integrated exploratory analyzes. In addition, tools are designed to be used together and combined to complete complex analyzes.
+
+\subsubsection{Linking Clinical and Structural Data}
+
+Subjects in BRAVIZ are always considered as a whole, and therefore all of their associated data is always accessible. For example, the Subject Overview application displays a set of clinical variables and annotations together with spatial-data. This added context lets researchers make a more accurate reading of images and other spatial data. With other tools, researchers would need to seek this information elsewhere. 
+
+Several scalar measurements can be derived from spatial data within the tool itself. For example a group of segmented structures can be selected and their combined volume added as a new variable. These values can afterwards be used together with clinical variables for statistical analysis, but a link is kept between the data and the environment in which it was generated. Continuing with this example, if the researcher finds an outlier, she/he can right click on it and from the context menu open the application in which the value was generated, with the configuration it had at that time, but focused on the subject of interest. In this way it can be reviewed if the extreme value was caused by a particular structure of the subject, which could be an error in segmentation, a problem with the image, or sign of an actual pathology.
+
+\subsubsection{Comparing Subjects}
+
+A common task in exploratory research is analyzing similarities and differences amongst a group of subjects. Most existing visualization tools for spatial data force researchers to selects the subject of interest at the very start, and then configure all the visualization options and load the necessary files. BRAVIZ takes a different approach, and always allows the subjects of interest to change in the middle of the analysis while maintaining the configuration of the application. In this way it is easy to look at different subjects from the same point of view, which makes comparing data very efficient.  
+
+\subsubsection{Working with Samples}
+
+Often some properties of the data will only apply to a specific group/sample of subjects. In BRAVIZ samples are a central component of every analysis. They can be defined by using filters on variable values, manually adding and removing specific subjects, taking random subsets, or combining samples through set operations (union, intersection and difference). These samples can then be used throughout the tool, which makes repeating analyzes for different groups easy. They can also be modified, for example to remove pathological data points, and the results of the modification visualized in real time. In contrast, most tools oriented towards confirmatory research require the sample to be set at the start of the analysis.
+
+\subsubsection{Working with incomplete data}
+
+It is common for some of the values or geometric data to be missing for some subjects. Applications that show geometric data will detect missing data and hide the corresponding object from the scene, showing also a warning in the status bar. All statistical visualizations will display the number of missing points, and will ignore them when performing calculations. Finally the interface for building sample using filters provide a checkbox that allow the user to include or exclude subjects with a missing value for the specific variable.
+
+\subsubsection{Supporting Long Workflows}
+
+Analyzing a complex dataset requires a significant amount of time, and will likely be spit in multiple sessions. In order to ease re-using previous work, BRAVIZ applications allow saving and restoring their state using custom names and descriptions, and attaching textual annotations to subjects, variables and geometric objects (for example ROIs). In addition, a log of each analysis session is kept, which can be reviewed and annotated using a web interface. These features also allow other researchers to understand the meaning of variables, geometric structures and scenarios created by colleagues thereby fostering collaboration. 
+
+\subsubsection{Integrating Tools}
+
+In addition to the common database where all tools read and store variables and geometric objects, BRAVIZ includes a real time communication mechanism. Through it, all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even different devices; allowing researchers to get different perspectives of the data just by moving their eyes. Note that applications can block specific messages to keep the application from changing if the user prefers it. Also some actions that are likely to produce important changes, will ask the user for confirmation, giving him the option to always accept or always ignore the specific kind of messages.
+
+Multiple users can work with the same data  which allows them to share date. In this way one user may create a new measurement and make it available for the rest of the group. Real-time communication are implemented through TCP, therefore it would be possible to link together two workstations. We have not yet explored if this would provide a convenient user experience.
+
+
+
+
 \begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{subj_overview_full}
@@ -193,7 +229,7 @@ Figure \ref{fig_lm} shows an alternative application which fits standard linear 
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\linewidth]{anova.PNG}
+\includegraphics[width=\linewidth]{anova.png}
 \end{center}
  \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
 \end{figure}
@@ -245,45 +281,29 @@ Figure \ref{fig_lm} shows an alternative application which fits standard linear 
 
 \subsection{The Braviz library}
 
-%\subsection{Global BRAVIZ Features}
-In addition to the unique features of each BRAVIZ application, the whole tool provides features that directly support integrated exploratory analyzes. In addition, tools are designed to be used together and combined to complete complex analyzes. The BRAVIZ library supports these features and allows applications to communicate and behave consistently. 
+The Braviz library eases the development of application by providing several common features. In addition, it abstracts access to data in such a way that applications can be ported to different datasets. As shown in figure \ref{fig_arch} the library is divided in three modules. Note that this library can also be used in other python applications, including interactive work in a console or iPython notebooks.
 
-\subsubsection{Linking Clinical and Structural Data}
+\subsubsection{Read and Filter}
 
-Subjects in BRAVIZ are always considered as a whole, and therefore all of their associated data is always accessible. For example, the Subject Overview application displays a set of clinical variables and annotations together with spatial-data. This added context lets researchers make a more accurate reading of images and other spatial data. With other tools, researchers would need to seek this information elsewhere. 
+This module is in charge of reading the configuration file and instantiating the appropriate project reader class. In addition it holds several utility functions for converting image data between formats, applying affine transformations, filtering tractography and deriving scalar measures from scalar data. This module also abstracts reading and writing data from the BRAVIZ database. Currently this database is implentend in sqlite and it holds all non-spatial data, samples, scenarios, and other objects created by users.
 
-Several scalar measurements can be derived from spatial data within the tool itself. For example a group of segmented structures can be selected and their combined volume added as a new variable. These values can afterwards be used together with clinical variables for statistical analysis, but a link is kept between the data and the environment in which it was generated. Continuing with this example, if the researcher finds an outlier, she/he can right click on it and from the context menu open the application in which the value was generated, with the configuration it had at that time, but focused on the subject of interest. In this way it can be reviewed if the extreme value was caused by a particular structure of the subject, which could be an error in segmentation, a problem with the image, or sign of an actual pathology.
+\subsubsection{Visualization}
 
-\subsubsection{Comparing Subjects}
+The Visualization module contains functions and widgets that can be used to create spatial and non-spatial visualizations. Spatial visualizations use VTK underneath, but several classes are available to streamline development. For example, \emph{managers} are available for tractography, fmri and segmentation data, these are high level classes which connect to the Read and Filter module, loads the appropriate data, and manages the VTK visualization pipeline ending in an specified renderer. The user only needs to provide the current subject, current coordinate system, and some configuration parameters proper to the specific data type. Note that these classes expose methods as \emph{change\_subject} and \emph{change\_coordinates} which helps switching to a different subject or a different coordinate system.
 
-A common task in exploratory research is analyzing similarities and differences amongst a group of subjects. Most existing visualization tools for spatial data force researchers to selects the subject of interest at the very start, and then configure all the visualization options and load the necessary files. BRAVIZ takes a different approach, and always allows the subjects of interest to change in the middle of the analysis while maintaining the configuration of the application. In this way it is easy to look at different subjects from the same point of view, which makes comparing data very efficient.  
+Non-spatial visualizations use Matplotlib and Seaborn, or D3 in case of web based applications. This module provides functions to create common visualizations by providing an input data-frame and other configuration parameters. The created visualizations will behave as expected in BRAVIZ, this is, they will allow the user to find out the id of a point by hovering over it, it will create a context menus by right clicking on a point, and they will allow for highlighting points on the display. 
 
-\subsubsection{Working with Samples}
+\subsubsection{Interaction}
 
-Often some properties of the data will only apply to a specific group/sample of subjects. In BRAVIZ samples are a central component of every analysis. They can be defined by using filters on variable values, manually adding and removing specific subjects, taking random subsets, or combining samples through set operations (union, intersection and difference). These samples can then be used throughout the tool, which makes repeating analyzes for different groups easy. They can also be modified, for example to remove pathological data points, and the results of the modification visualized in real time. In contrast, most tools oriented towards confirmatory research require the sample to be set at the start of the analysis.
-
-\subsubsection{Working with incomplete data}
-
-It is common for some of the values or geometric data to be missing for some subjects. Applications that show geometric data will detect missing data and hide the corresponding object from the scene, showing also a warning in the status bar. All statistical visualizations will display the number of missing points, and will ignore them when performing calculations. Finally the interface for building sample using filters provide a checkbox that allow the user to include or exclude subjects with a missing value for the specific variable.
-
-\subsubsection{Supporting Long Workflows}
-
-Analyzing a complex dataset requires a significant amount of time, and will likely be spit in multiple sessions. In order to ease re-using previous work, BRAVIZ applications allow saving and restoring their state using custom names and descriptions, and attaching textual annotations to subjects, variables and geometric objects (for example ROIs). In addition, a log of each analysis session is kept, which can be reviewed and annotated using a web interface. These features also allow other researchers to understand the meaning of variables, geometric structures and scenarios created by colleagues thereby fostering collaboration. 
-
-\subsubsection{Integrating Tools}
-
-In addition to the common database where all tools read and store variables and geometric objects, BRAVIZ includes a real time communication mechanism. Through it, all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even different devices; allowing researchers to get different perspectives of the data just by moving their eyes. Note that applications can block specific messages to keep the application from changing if the user prefers it. Also some actions that are likely to produce important changes, will ask the user for confirmation, giving him the option to always accept or always ignore the specific kind of messages.
-
-Multiple users can work with the same data  which allows them to share date. In this way one user may create a new measurement and make it available for the rest of the group. Real-time communication are implemented through TCP, therefore it would be possible to link together two workstations. We have not yet explored if this would provide a convenient user experience.
-
-
+The interaction module includes common QT widgets as well as utilities to create web based applications and to handle communications between applications. It also handles connection to external tools. For example, it contains functions that use the R system to perform statistical analysis. 
 
 \subsection{Reading data into BRAVIZ}
 
+BRAVIZ was designed to read spatial data, which usually requires large storage, from the location where it is located, and without changing it in any way. In this way it can be regardless of the specific storage mechanisms used in a project. The cost of this, is that an appropriate Project Reader class must be programmed to interface BRAVIZ with spatial data.
 
 \subsubsection{Preprocessing}
 
-While BRAVIZ integrates some basic image processing algorithms, the focus is on interactive visualization. Therefore, users should perform data pre-processing using third party tools before starting with BRAVIZ. As a minimum BRAVIZ expects registration matrices linking the different coordinate systems present in images. Running the FreeSurfer \emph{recon_all} pipeline will provide BRAVIZ segmentation, cortical parcellation and Talairach registration, which is basic for most of visualizations. 
+While BRAVIZ integrates some basic image processing algorithms, the focus is on interactive visualization. Therefore,  data should be pre-processed using third party tools before starting with BRAVIZ. As a minimum BRAVIZ expects registration matrices linking the different coordinate systems present in images. Running the FreeSurfer \emph{recon\_all} pipeline will provide BRAVIZ segmentation, cortical parcellation and Talairach registration, which is basic for most of visualizations. 
 
 In addition, BRAVIZ can read SPM statistical maps and warp fields. It is also able to read tractography output ( at the moment in vtk format ) as well as Tracula bundles. Finally, BRAVIZ can read any type of scalar map, for example those derived from the DTI model.
 
