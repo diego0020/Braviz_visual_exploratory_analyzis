@@ -137,7 +137,11 @@ Note that this model is based on the Model-View-Controller pattern, where the bo
 
 A ``user centered'' approach \cite{wassink_applying_2009} was used to design and implement BRAVIZ. The authors worked closely with brain researchers of several specialties, visited several labs and hospitals, and learned as much as possible about research workflows and the bottlenecks they contain. Prototypes were implemented in several iterations and shared with different domain experts, whose feedback motivated the design of the next generation.
 The initial stages of design focused on identifying the obstacles that affect exploratory analysis and communication between experts, and examined ways of mitigating them. The team of experts was composed of radiologists, psychiatrists, physicians, neurophysiologists, pediatricians, statisticians, engineers and economists.
-From analyzing the visualization options in current neuroimaging tools, as well as how domain experts used them, the BRAVIZ team learned what was expected from image viewers, i.e. which features were important to implement and which were seldom used. SPM \cite{friston_statistical_2007}, Osirix \cite{rosset_osirix:_2004} and 3D-Slicer \cite{fedorov_3d_2012} were the reference at this stage. For example, researchers needed to visualize several types of data in the same space and to be able to compare brain images between two subjects. Also obvious was the need to integrate spatial visualizations with non-spatial data for the same subject in order to be able to understand relationships. Another common need discovered in this exchange with expert users was the navigation from one subject to the other without having to re-start the visualization application per subject. This was satisfied by means of graphical user interfaces.
+
+From analyzing the visualization options in current neuroimaging tools, as well as how domain experts used them, the BRAVIZ team learned what was expected from image viewers, i.e. which features were important to implement and which were seldom used. SPM \cite{friston_statistical_2007}, Osirix \cite{rosset_osirix:_2004} and 3D-Slicer \cite{fedorov_3d_2012} were the reference at this stage. For example, researchers needed to visualize several types of data in the same space and to be able to compare brain images between two subjects. Also obvious was the need to integrate spatial visualizations with non-spatial data for the same subject in order to be able to understand relationships. Another common need discovered in this exchange with expert users was the navigation from one subject to the other without having to re-start the visualization application per subject. 
+
+In addition, there was the need for performing quick statistical analysis, working with different groups of subjects, creating and importing new data on the fly, performing group analyzes, identifying outliers and detecting data quality issues. \footnote{Can you think of something else?}
+
 
 
 \subsection{Applications Set}
@@ -182,7 +186,9 @@ The fMRI Explorer application from Figure \ref{fig_fmri} displays raw BOLD signa
 
 The ANOVA application (see Figure \ref{fig_anova}) provides direct access to these models implemented in \emph{R} \cite{team_r:_2012}. After fitting the model the main plot shows diagnostics (distribution of residuals and a scatter plot of residuals vs fitted values) for validating the ANOVA hypotheses (normally distributed noise with constant variance) and the table at the bottom right shows the resulting statistics. The application can also show box-plots and scatter-plots which provide additional insight on the relation between regressors (nominal and numeric variables and interaction terms) and outcome. Individual points in these plots may be identified by placing the mouse over them. Additionally, by right clicking, they can be loaded on other BRAVIZ applications to get additional information, this is especially useful for outliers.
 
-Figure \ref{fig_lm} shows an alternative application which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The correlations application shown in figure \ref{fig_correlations} displays a list of variables, a correlations matrix of selected variables, and scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. The parallel coordinates display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables.
+Figure \ref{fig_lm} shows an alternative application (Sample Overview) which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables associated to a level of a numerical variable or interactions). The Correlations application shown in figure \ref{fig_correlations} displays a list of variables, a correlations matrix of selected variables, and scatter plots of selected correlations. As usual, points in the plot can be queried and right clicked. Additionally, they can be temporary eliminated from the analysis to see the impact they have on the correlation. 
+
+The Parallel Coordinates display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables. In this case each vertical axis represents a variable, and each line is a subject. Users can interactively apply filters to each axis, in order to see how changes in one variable affect other values, and to understand relations involving several variables.
 
 \subsection{Common Features}
 
@@ -333,6 +339,10 @@ Notice that the task of setting up BRAVIZ to work with a new data-set requires s
 \section{Case Studies}
 
 The functionality provided by BRAVIZ can be used both for untargeted, intuitive and adaptive discovery of relationships, in order to improve understanding of data through visualization complementing formal statistical analyses, as well as for structured dissection of data. In subsection \ref{sec_case_cyril} an example of adaptive data exploration is presented. Subsection \ref{sec_pvm_case} illustrates pre-structured, targeted exploratory analysis to identify potential candidates for a sub-analysis of leukomalacia in a cohort of adolescents followed since birth. 
+
+In this study, MRI, F-MRI and diffusion data was acquired, anonimized and stored in dicom format. Afterwards it was pre-processed using dcm2nii \cite{}, fsl\cite{}, freesurfer\cite{}, camino\cite{} and spm\cite{}. A custom BRAVIZ project reader was implemented to read the output of this process. 
+Clinical data was consolidated in an SPSS database, which was later on imported into BRAVIZ. These tasks were performed by the engineering members of the group. Afterwards, all other researchers were free to use BRAVIZ in order to explore and analyze the data on their own computers. The first case study was carried out by a neurophysiologist, while the second one was completed by a  pediatrician and a neuro-radiologists. 
+
  
 \subsection{Adaptive exploration of anatomical and functional findings in adolescents that were born pre-term versus at term}
 \label{sec_case_cyril}
@@ -344,11 +354,9 @@ This section describes an adaptive inference process in which insights inspire s
 Data comes from the seminal demonstration of \cite{schneider_cerebral_2012} on the influence of a very premature birth ($<$ 33 weeks of gestational age) on brain motor function in a sample of 15-year old adolescents who were compared to their term peers. This study also tested another sample for the impact of an early care protocol after preterm birth, i.e. the Kangaroo Mother Care, but this is beyond the present topic. The authors used the noninvasive and painless transcranial magnetic stimulation (TMS) of the primary motor cortex (M1) to probe brain motor function in relation to the control of the hand (index finger abductor muscle involved in precision grip and whose motor evoked potentials to TMS were recorded by surface EMG). This approach helped to demonstrate that the very prematurely born adolescents (referred to as PT) presented with a suboptimal functioning of the motor brain as compared to the terms. Out of all differences detected between PT and terms, the lower excitability of M1 in PT and the longer time for interhemispheric transfer worth to be used for the present demonstration. These two variables are related given the importance of transcallosal fibers (via corpus callosum or CC) for hemispheric pruning during brain development that contributes to functional architecture (networks arrangements) and basic excitability in each hemisphere thus to functional lateralization of brain and harmonious behavior. Given that CC develops during the three last months of gestation (see \cite{schneider_cerebral_2012}), it was hypothesized that the suboptimal (slower) interhemispheric function in PT was related to the interruption of in utero maturation of CC due to the very preterm birth. However, a link to CC actual measures (MRI-DTI data) and an impact on clinical performances (neuropsychology) have not yet been established in this study.
 
 
-%In this research, a particularly representative case study, the KMC (Kangaroo Mother Care) project, is introduced to both motivate the requirements for BRAVIZ and demonstrate its effectiveness. An original randomized study involving around 750 preterm babies was conducted in 1994 \cite{charpak_kangaroo_1997}. These children were followed during their first year \cite{charpak_randomized_2001}, \cite{tessier_kangaroo_2009} of life and several clinical and socio-economical variables were registered. Forty of these children were re-located later at fifteen years of age, and they were submitted to several neuropsychological tests, measuring attention, memory, reasoning skills and hand-eye coordination among others. They also had vision, hearing, and TMS (Transcraneal Magnetic Stimulation) tests\cite{schneider_cerebral_2012} and full medical examinations . Finally, they were scanned with Structural MRI, DTI (Diffusion Tensor Imaging) and several functional MRI (FMRI) paradigms. These images were processed with Freesurfer \cite{fischl_freesurfer_2012}, fsl\cite{jenkinson_fsl_2012}, camino\cite{cook_camino:_2006}, and spm\cite{friston_statistical_2006}; which extracted several numerical measurements and geometric structures like segmentation and tractography. All of this data was collected for testing specific hypotheses but the specialists involved in the study are also interested in analyzing it for unexpected relationships and trends; in other words, to perform exploratory analyses.
-
 \subsubsection{Specific contribution of BRAVIZ}
 
-Yet anatomical data (MRI-DTI: structures volume, fibers number and length) and neuropsychological assessments all collected in the samples of PT and terms participants in parallel to TMS outcomes have not been published due to the difficulty to statistically analyze, visualize, explore and understand the link between outcomes of different nature (severely time-consuming with the use of different softwares and data transformations likely providing biases or mistakes) and due to the required involvement of experts dedicated to the interpretation of each outcome. The user-centered approach and applications/modules of BRAVIZ with real-time statistical analyses (color coding for instantaneous detection of a correlation for example), and access to multi-facetted neuroscience and clinical data (spatial and non-spatial interactive data visualizations with common operations available between BRAVIZ applications) favored such a multi-task, with easy detection of outliers owing to the target outcomes and to the merged interpretation of experts. The following subsection shows that BRAVIZ helped efficiently question the datain our sample of 15-year preterm adolescents.
+Yet anatomical data (MRI-DTI: structures volume, fibers number and length) and neuropsychological assessments all collected in the samples of PT and terms participants in parallel to TMS outcomes have not been published due to the difficulty to statistically analyze, visualize, explore and understand the link between outcomes of different nature (severely time-consuming with the use of different softwares and data transformations likely providing biases or mistakes) and due to the required involvement of experts dedicated to the interpretation of each outcome. The user-centered approach and applications/modules of BRAVIZ with real-time statistical analyses (color coding for instantaneous detection of a correlation for example), and access to multi-facetted neuroscience and clinical data (spatial and non-spatial interactive data visualizations with common operations available between BRAVIZ applications) favored such a multi-task, with easy detection of outliers owing to the target outcomes and to the merged interpretation of experts. The following subsection shows that BRAVIZ helped efficiently question the data in our sample of 15-year preterm adolescents.
 
 \subsubsection{Scientific discovery (outliers, ancillary hypotheses)}
 
@@ -356,7 +364,7 @@ BRAVIZ was used to explore any link between TMS tested M1 function (reflecting c
 
 The parallel visualization of the different sections of CC in all participants with real-time 1-way analyses of variance and their scatter plots with standard deviations and individual values superimposed helped detect four outliers immediately. These outliers are detailed in the next step (correlations). Withdrawing of these outliers enabled to determine that the CC medial-anterior part (maCC part connecting both M1s) was smaller for its volume in PT ($17228 \pm 5100 mm^3$) than in terms ($22352 \pm 3900 mm^3; p=0.02$) and smaller for its number of callosal fibers in PT ($1806 \pm 573$) than in terms ($2600 \pm 570; p=0.008$). We did not however detect any correlation in PT of one of these two parameters with the interhemispheric transfer time that was shown to be longer by \cite{schneider_cerebral_2012}. 
 
-\paragraph{Correlations viewer for neuroscience data (scatters and matrices, real-time statistics)}
+%\paragraph{Correlations viewer for neuroscience data (scatters and matrices, real-time statistics)}
 
 Given the detection of a strong correlation between maCC volume and the length of maCC fibers ($r=0.81; p=0.0001$), we intuitively decided to correlate the interhemispheric transfer time (ITT) to maCC fibers length: Figure \ref{fig_cyril_1} shows that a strong correlation was present for PT (black circles), the longer the maCC fibers and the longer the ITT for PT and not for the terms (empty circles). This correlation was true with the outliers excluded: the three stars were participants with either cerebral palsy or X-fragile pathology which initially masked the detection of the correlation. BRAVIZ also enabled to immediately detect that the circled star was a participant with a hole in the maCC part (Figure \ref{fig_cyril_2}) this explain a similar alteration of IIT (longer than terms) with shorter CC fibers. An ancillary hypothesis is that co-morbidity (breathing problems, pulmonary infection, bleeding, pain) induced more deleterious effects pain after the preterm birth.
 
@@ -379,7 +387,7 @@ The correlation in Figure \ref{fig_cyril_1} thus shows that PT can have longer I
 Also, not all PT had lengthening of ITT but especially five of them presented with ITT over 20ms (over the horizontal dotted line, the normal is 8ms for men and 14ms for women, see \cite{schneider_cerebral_2012}). BRAVIZ’s parallel visualization of different outcomes helped rapidly tackle that four out of these five 15-year participants had a transient score, at 6 months of age, at the infant neurological international battery (Infanib). 
 The interactive data visualization helped detect that a transient Infanib score at 6 months of age was related now, at 15 years of age, to a lower M1 excitability for hand function and to a higher frequency of ipsilateral corticospinal responses (responses in the hand muscle on the same side of M1 stimulated which is abnormal due to the typical crossed organization of motor systems for hand function). It follows that the four PT participants who significantly drove the correlation in Figure \ref{fig_cyril_1} had a dysfunctional organization of M1 function due to the lack of hemispheric pruning following a preterm birth \cite{schneider_cerebral_2012}. The ancillary hypothesis is that Infanib testing at 6 months of age may be predictive of a long-term impairment of interhemispheric function.
 
-\paragraph{Correlations viewer for clinical data}
+%\paragraph{Correlations viewer for clinical data}
 
 
 The CC function is for example involved in the visuomotor control of movement. The clinical testing of visuomotor integration (VMI) was performed in all participants and the standardized score (VMI StS) was significantly lower in the PT group ($95.5 \pm 7$) than in the terms ($108.5 \pm 3.5 ; p=0.0001$). 
@@ -405,68 +413,14 @@ These figures show that the lowest scores of VMI were obtained in individuals wi
 
 BRAVIZ and its applications and modules significantly eased the exploratory analysis of these multi-kind and multi–facetted outcomes. With different experts gathered (neonatologist, neurophysiologist, psychologist), this new tool enabled to raise new scientific hypotheses in prematurity as tested at adolescence when fibers myelination completes. Such results go beyond previous works in preterm children aged 8 years old and with visuomotor coordination impairment and motor and brain dysfunction \cite{schneider_visuo-motor_2008,flamand_brain_2012}. Future work should further test the predictive values of the Infanib collected at 6 months of age and the actual influence of synaptic organization on the clinical outcomes as compared to the influence of anatomical differences between PT and terms. There is an important clinical impact for the adaptation of early care after a preterm birth: the objective may be to better influence the synaptic plasticity identified with BRAVIZ analysis as possibly impaired in PT and related to the long-term impairments. On that vein, a specific focus, in terms of quality and intensity of intervention for synaptic efficiency, should be made on those individuals presenting characteristics that BRAVIZ exploratory analysis identified at risk for the integrity of their brain function.
 
-%\subsection{Relations between fibers and Neuropsychological}
-%
-%One of the applied tests was the WISC (Wechsler Intelligence Scale for Children), which is divided in four indices: Verbal Comprehension, Perceptual Reasoning, Working Memory and Procession Speed. 	Language capacities are known to be associated with the posterior area of the corpus callosum, which can be analyzed in the KMC dataset. 
-%
-%The first task is extracting an appropriate measurement for the quality of the anterior area of the corpus callosum (CC), which can be accomplished using the subject overview application. In the segmentation tab, the anterior and mid anterior sections of the corpus callosum can be selected. In this tab it is possible to calculate the volume or the mean FA (Fractional Anisotropy) inside these regions. However, in order to get a more robust measurement, the tractography panel can be used to calculate the fibers that go through these regions. Then, the mean FA, mean length and number of streamlines in this bundle can be calculated. All of these measurements are correlated between them, but the length of the fibers includes more information of the region, as streamline propagation is controlled by an FA threshold, consistent high FA values around the CC will cause streamlines to grow longer.
-%
-%After calculating this measurement, the relationship can be visualized using the Linear Model application. This initial plot is shown on Figure \ref{fig_lm}.
-%
-%\begin{figure}
-%\begin{center}
-%\includegraphics[width=\linewidth]{figures/cases/initial_corr}
-%\end{center}
- %\caption{\label{fig_lm}An initial correlation with a prominent outlier}
-%\end{figure}
-%
-%
-%It is clear that the point at the extreme left is an outlier which has to be analyzed in more detail. By right clicking on it, a context menu appears with the option of opening the respective subject on the Subject Overview Application, with the visualization used for calculating the measure. This view is shown on Figure \ref{fig_subject2}, compared to a term subject in the middle of the plot.
-%
-%\begin{figure}
-%\begin{center}
-%\begin{subfigure}[b]{0.48\linewidth}
-%\includegraphics[width=\textwidth]{figures/cases/cc_fibs_posterior_outlier}
-%\caption{\label{fig_cc_outlier}outlier}
-%\end{subfigure}\hfill
-%\begin{subfigure}[b]{0.48\linewidth}
-%\includegraphics[width=\textwidth]{figures/cases/cc_fibs_posterior_control}
-%\caption{\label{fig_cc_control}control}
-%\end{subfigure}
-%\end{center}
- %\caption{\label{fig_subject2} Posterior Corpus Callosum Fibers from the outlier from Figure \ref{fig_lm} compared to a control subject}
-%\end{figure}
-%
-%The MRI image has significant noise, and there are several missing fibers in the corpus callosum. This is an unfortunate problem associated to data acquisition that cannot be corrected by the tool. Therefore this point must be excluded from the analysis. At this point it is worth asking if there are more subjects with similar data quality problems. To check this, the whole sample can be loaded in the Sample Overview application, in a view that shows the corpus callosum and associated fibers (Figure \ref{fig_parallel}).
-%
-%\begin{figure}
-%\begin{center}
-%\includegraphics[width=\linewidth]{figures/cases/quality_control_trim}
-%\end{center}
- %\caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
-%\end{figure}
-%
-%From this view, some additional subjects with fiber tracking issues are detected and excluded from the sample. The corrected sample (28 subjects) can then be shared with the Linear Model application which updates the plot to the one in Figure \ref{fig_lm2}.
-%
-%
-%\begin{figure}
-%\begin{center}
-%\includegraphics[width=\linewidth]{figures/cases/final_corr}
-%\end{center}
- %\caption{\label{fig_lm2} Correlation from figure \ref{fig_lm} with corrected sample}
-%\end{figure}
-%
-%
-%This plot shows a slight correlation between the lengths of the fibers that go through the posterior part of the CC with the Verbal Comprehension Score. By fitting the actual model it can be seen that it has an associated P value of 0.28; which is not significant, but is good enough to try testing this hypothesis in a larger dataset.
   
-
 \subsection{Pre-structured, targeted search and characterization of leukomalacia patients}
 \label{sec_pvm_case}
 Periventricular Leukomalacia (PVL) is characterized by a lesion in the periventricular germinal matrix, which results in a loss of white matter and a compensatory growth in the ventricular system. Preterm babies, especially those born prior to 33 weeks of gestation, have a significant risk of suffering from this condition, which can cause motor and vision problems, cerebral palsy and epilepsy.    
 
 Unfortunately the imaging protocol of the study did not include FLAIR images, which are the most appropriate for detecting PVL. However, using BRAVIZ and some of the other data, the database can be searched for possible subjects who suffer the condition. This exploration is just for better understanding the database, and is not directly targeted towards a scientific hypothesis. However as the database is explored there is always a chance of finding something surprising.
 
-A parallel coordinates display can be used to view the volume of the ventricular system and the total white matter. The possible effects of the condition would be lower scores in motor and visual tests and general intelligence assessment; which can also be added to the display. In addition, the dataset includes a neurological motor assessment which classifies subjects in normal and not-normal.  Finally the risk factors, weight and gestational age (Ballard) at birth, can also be added to obtain the display shown in Figure \ref{fig_parallel}.
+A parallel coordinates display was used to view the volume of the ventricular system and the total white matter. The possible effects of the condition would be lower scores in motor and visual tests and general intelligence assessment; which can also be added to the display. In addition, the dataset includes a neurological motor assessment which classifies subjects in normal and not-normal.  Finally the risk factors, weight and gestational age (Ballard) at birth, were also added to obtain the display shown in Figure \ref{fig_parallel}.
 
 \begin{figure}
 \begin{center}
@@ -498,7 +452,6 @@ It allows researchers to directly access all data, letting them explore it effic
 
 By providing direct access to  data BRAVIZ can help save time, but more importantly, it enables researchers to efficiently pursue all questions that come to mind. If finding the answer required a cumbersome procedure and gathering data from several sources, the question would not be explored unless there was a strong reason to do it. By easing data access, more questions can be followed which increases the chances of finding unexpected interesting results.
 
-%As most real datasets, the one considered here is not perfect and some data errors will always be present. Researchers should always have access to raw and processed data so that they can be certain of the veracity of results. This should be done rapidly so that researchers can spend more time exploring and not performing quality control. When pathological data is found, it should be removed from analysis, annotated or fixed. Presenting data visually makes extreme values salient, for example values in different units or with a misplaced decimal point. In addition, BRAVIZ's Variable selection dialogs give researchers the opportunity to review and fix variable meta-data (description, labels, range). The database can also be enriched by deriving measures from geometric data (automatically or with manual intervention) or importing additional variables from spreadsheets. As a consequence, the database evolves and becomes more valuable after each analysis round. 
 
 Combining clinical and geometric data with the unstructured clinical history allows researchers to reconstruct a full picture of each subject. This is valuable for making accurate interpretations of results, for fully understanding the dataset and for deciding if a certain subject should or should not be included in the sample of an analysis. Subjects in BRAVIZ are always linked to all their associated data, and therefore can always be analyzed as a whole.
 
@@ -508,6 +461,8 @@ It was also clear that the tools permit searching for subjects with specific con
 Samples are a first class element in BRAVIZ. They can be created in several ways, saved into the database for future use or used instantaneously in statistical models or group data visualizations. Researchers can thus iterate through several samples, several models, several measurements and several views, thus gaining understanding of the data-set and raising questions and hypotheses for future projects.
 
 A log of each analysis session which includes actions performed on different applications is automatically kept and made available through a web interface. Researchers can enhance this log by labeling the most important steps and adding textual annotations. The state of an application at any point can be reloaded with the click of a button, which allows researchers to revisit important visualization and explore different analysis paths, and allowing them to build on top of what was found on previous sessions. 
+
+In contrast to current tools, BRAVIZ allow to visualize data from different subjects with a fewer number of clicks, and it is also straightforward to make comparissons of the same data from different subjects. With traditional tools it was common for users to have one window with a medical image viewer, and another window with the SPSS file containing the clinical data, and they would have to be constantly searching manually for the match between both types of data. Also note that during these analyzes users access data by its name and the subject of interest. They don't have to think about individual files, and in fact, they don't even need to know what is the underlying storage being used. This lets users focus on the task at hand, and forget about most technical details as data formats and transformations. 
 
 \section{Conclusions and Future Work}
 
