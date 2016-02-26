@@ -313,13 +313,13 @@ While BRAVIZ integrates some basic image processing algorithms, the focus is on 
 
 In addition, BRAVIZ can read SPM statistical maps and warp fields. It is also able to read tractography output ( at the moment in vtk format ) as well as Tracula bundles. Finally, BRAVIZ can read any type of scalar map, for example those derived from the DTI model.
 
-In order to run these pre-processing it is suggested to make use of a pipeline system such as LONI pipeline \cite{} or NiPype \cite{}.
+In order to run these pre-processing it is suggested to make use of a pipeline system such as LONI pipeline \cite{dinov_efficient_2009} or NiPype \cite{gorgolewski_nipype:_2011}.
 
 \subsubsection{Importing Data}
 
 %Review 1a
 
-As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications. The python terminal or iPython notebooks \cite{} may also be used to interactively read data from other sources (for example scraping web sites or by parsing DICOM headers), transform it into a pandas dataframe, and save it into the BRAVIZ database using a high level API.
+As mentioned at the start of the section, making BRAVIZ portable to different data-sets and data-formats was a design goal. Clinical data can be imported into the system from excel tables or SPSS files using integrated tools. This data is copied into a database, and can be used from all applications. The python terminal or iPython notebooks \cite{perez_ipython:_2007} may also be used to interactively read data from other sources (for example scraping web sites or by parsing DICOM headers), transform it into a pandas dataframe, and save it into the BRAVIZ database using a high level API.
 
 Note that additional data may be added at any point in time. In addition, non-spatial data can also be easily exported from a graphical interface to an spreadsheet. This allows the user to take some variable of interest out of BRAVIZ, perform calculation on an external tool, and import the results back into BRAVIZ.
 
@@ -340,7 +340,7 @@ Notice that the task of setting up BRAVIZ to work with a new data-set requires s
 
 The functionality provided by BRAVIZ can be used both for untargeted, intuitive and adaptive discovery of relationships, in order to improve understanding of data through visualization complementing formal statistical analyses, as well as for structured dissection of data. In subsection \ref{sec_case_cyril} an example of adaptive data exploration is presented. Subsection \ref{sec_pvm_case} illustrates pre-structured, targeted exploratory analysis to identify potential candidates for a sub-analysis of leukomalacia in a cohort of adolescents followed since birth. 
 
-In this study, MRI, F-MRI and diffusion data was acquired, anonimized and stored in dicom format. Afterwards it was pre-processed using dcm2nii \cite{}, fsl\cite{}, freesurfer\cite{}, camino\cite{} and spm\cite{}. A custom BRAVIZ project reader was implemented to read the output of this process. 
+In this study, MRI, F-MRI and diffusion data was acquired, anonimized and stored in dicom format. Afterwards it was pre-processed using dcm2nii \cite{rorden_mricron_2007}, fsl\cite{jenkinson_fsl_2012}, freesurfer\cite{fischl_freesurfer_2012}, camino\cite{cook_camino:_2006} and spm\cite{friston_statistical_2007}. A custom BRAVIZ project reader was implemented to read the output of this process. 
 Clinical data was consolidated in an SPSS database, which was later on imported into BRAVIZ. These tasks were performed by the engineering members of the group. Afterwards, all other researchers were free to use BRAVIZ in order to explore and analyze the data on their own computers. The first case study was carried out by a neurophysiologist, while the second one was completed by a  pediatrician and a neuro-radiologists. 
 
  
