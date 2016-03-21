@@ -206,8 +206,8 @@ Several scalar measurements can be derived from spatial data within the tool its
 A common task in exploratory research is analyzing similarities and differences amongst a group of subjects. Most existing visualization tools for spatial data force researchers to selects the subject of interest at the very start, and then configure all the visualization options and load the necessary files. BRAVIZ takes a different approach, and always allows the subjects of interest to change in the middle of the analysis while maintaining the configuration of the application. In this way it is easy to look at different subjects from the same point of view, which makes comparing data very efficient.  
 
 \subsubsection{Working with Samples}
-
-Often some properties of the data will only apply to a specific group/sample of subjects. In BRAVIZ samples are a central component of every analysis. They can be defined by using filters on variable values, manually adding and removing specific subjects, taking random subsets, or combining samples through set operations (union, intersection and difference). These samples can then be used throughout the tool, which makes repeating analyzes for different groups easy. They can also be modified, for example to remove pathological data points, and the results of the modification visualized in real time. In contrast, most tools oriented towards confirmatory research require the sample to be set at the start of the analysis.
+\label{subsamples}
+Often some properties of the data will only apply to a specific group/sample of subjects. In BRAVIZ samples are a central component of every analysis. They can be defined by using filters on variable values, manually adding and removing specific subjects, taking random subsets, or combining samples through set operations (union, intersection and difference). These samples can then be used throughout the tool, which allows repeating analyzes for different groups. They can also be modified, for example to remove pathological data points, and the results of the modification visualized in real time. In contrast, most tools oriented towards confirmatory research require the sample to be set at the start of the analysis.
 
 \subsubsection{Working with incomplete data}
 
@@ -270,13 +270,6 @@ Multiple users can work with the same data  which allows them to share date. In 
  \caption{\label{fig_other_apps} Examples of BRAVIZ Applications}
 \end{figure*}
 
-
-
-
-
-
-
-
 \begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{imagine.jpg}
@@ -287,7 +280,7 @@ Multiple users can work with the same data  which allows them to share date. In 
 
 \subsection{The Braviz library}
 
-The Braviz library eases the development of application by providing several common features. In addition, it abstracts access to data in such a way that applications can be ported to different datasets. As shown in figure \ref{fig_arch} the library is divided in three modules. Note that this library can also be used in other python applications, including interactive work in a console or iPython notebooks.
+The Braviz library eases the development of application by providing several common features. In addition, it abstracts access to data in such a way that applications can be ported to different datasets. As shown in figure \ref{fig_arch} the library is divided in three modules. Note that this library can also be used in other python applications, including interactive work in a terminal or an iPython notebook.
 
 \subsubsection{Read and Filter}
 
@@ -469,7 +462,8 @@ BRAVIZ was designed as a tool for exploratory analysis of datasets which combine
 
 Even though the presented cases relied on a particular dataset, the architecture of the tool (Figure \ref{fig_arch}) was designed with portability in mind. All access to spatial data (images and derived objects) is performed inside a single module which provides a high level interface to the upper components of the system. By implementing several of these modules, the system can work on top of several projects which may have different mechanisms, layouts and formats for storing spatial data. Currently the system has been tested on a larger project from the Kangaroo Foundation which includes about 450 subjects, more complex fMRI paradigms, bigger amounts of clinical variables, and more anatomical imaging modalities.  
 
-Most visualizations will not scale to larger data-sets. They will look crowded and it will become hard to tell the different subjects apart. In order to mitigate these problems sub-samples should be used. In this way the analysis can focus on a smaller population of interest, or a random subsample that represents the larger population may be used. As always, the objective here is exploring data and proposing hypothesis, other methods should then be used to formally prove these hypotheses.
+A common concern is if this approach will work with larger datasets, with thousands or even millions of subjects. In general, data visualization can surprise us but they don't scale well, while data modeling does scale but can't surpise us \cite{grolemund_r_2016}. Therefore one must iterate between visualization and modeling. One approach is to start exploring with a smaller subsample, and if an interesting trend is found try to see if it can be generalized to the full sample. Likewise, visualizations on a smaller subsample can be used to further understand and explore results obtained elsewhere. All of these can be achieved using the subsample mechanism (see \ref{subsamples}) integrated in Braviz.
+
 
 The architecture was also designed to make implementation of additional applications easy and to encapsulate all low level data manipulation in a library. Thus, allowing the implementation of more specific applications to support concrete analysis tasks. In particular, there is a need for tools that support group based analysis like second level FMRI or VBM (Voxel Based Morphometry). In addition, several researchers have expressed their interest in integrating other kinds of data, for example EEG signals or connection graphs \cite{rubinov_complex_2010} derived from DWI or fMRI.  
 The focus of BRAVIZ is interactive data visualization, and it should remain that way. Third party tools and libraries should be used whenever possible for processing, and fortunately, several of them are available under open source licenses. BRAVIZ itself is distributed under a LGPL license and the source code is available through the project web page \url{diego0020.github.io/braviz}. Additional testing in diverse datasets and by researchers of multiple backgrounds is still required. The authors are willing to provide assistance to any one interested to set up the environment and start using it. 
