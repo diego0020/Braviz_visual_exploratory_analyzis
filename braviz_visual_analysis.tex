@@ -1,7 +1,10 @@
 \RequirePackage{fix-cm}
 
-\documentclass[twocolumn]{svjour3} 
-\usepackage[utf8]{inputenc}
+\documentclass{frontiersHLTH}
+\usepackage{url,hyperref,lineno,microtype,subcaption}
+\usepackage[onehalfspacing]{setspace}
+
+%\usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{letltxmacro}
 \usepackage{graphicx}
@@ -34,41 +37,47 @@
 \usepackage{pdfescape}
 \usepackage{subcaption}
 
-\usepackage{url,hyperref,lineno,microtype}
 \usepackage{mathptmx}
 
 \hyphenation{da-ta-base da-ta-bases ex-pla-na-to-ry ex-plo-ra-to-ry BRA-VIZ}
 
-\journalname{The Visual Computer}
+
+\def\keyFont{\fontsize{8}{11}\helveticabold }
+\def\firstAuthorLast{Angulo {et~al.}} %use et al only if is more than 1 author
+\def\Authors{Diego A. Angulo\,$^{1,*}$, Cyril Schneider\,$^{2}$, James H. Oliver\,$^{3}$, Nathalie Charpak\,$^{4}$, Jose T. Hernandez\,$^{1}$,}
+% Affiliations should be keyed to the author's name with superscript numbers and be listed as follows: Laboratory, Institute, Department, Organization, City, State abbreviation (USA, Canada, Australia), and Country (without detailed address information such as city zip codes or street names).
+% If one of the authors has a change of address, list the new address below the correspondence details using a superscript symbol and use the same symbol to indicate the author in the author list.
+\def\Address{$^{1}$IMAGINE, Systems and Computing Engineering, Universidad de los Andes, Bogota, Colombia \\
+$^{2}$LCNS, CHUL, Quebec , QC, Canada\\
+$^{3}$VRAC, Iowa State University, Ames , IA, Unites States \\
+$^{4}$Kangaroo Foundation, Bogota, Colombia }
+% The Corresponding Author should be marked with an asterisk
+% Provide the exact contact address (this time including street name and city zip code) and email of the corresponding author
+\def\corrAuthor{Diego A. Angulo P.}
+\def\corrAddress{Universidad de los Andes, Carrera 1 \# 18A -12 , Bogota, Colombia}
+\def\corrEmail{da.angulo39@uniandes.edu.co}
+
 
 \begin{document}
+\onecolumn
+\firstpage{1}
+	
+\title[Braviz]{A Multi-facetted Visual Analytics Tool for Exploratory Analysis of Human Brain and Function Datasets} 
 
-\title{A Multi-facetted Visual Analytics Tool for Exploratory Analysis of Human Brain and Function Datasets} 
+\author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
+\address{} %This field will be automatically populated
+\correspondance{} %This field will be automatically populated
 
-\author{Diego A. Angulo \and Cyril Schneider \and James H. Oliver  \and Nathalie Charpak \and Jose T. Hernandez}
-
-\institute{Diego A. Angulo \and Jose T. Hernandez
-\at IMAGINE, Systems and Computing Engineering, Universidad de los Andes, Carrera 1 \# 18A -12 , Bogota, Colombia
-\email{da.angulo39@uniandes.edu.co} 
-\and
-Cyril Schneider
-\at CNS, CHUL, Quebec , QC, Canada 
-\and
-James H. Oliver
-\at VRAC, Iowa State University, Ames , IA, Unites States
-\and 
-Nathalie Charpak
-\at Kangaroo Foundation, Bogota, Colombia
-}
-
+\extraAuth{}% If there are more than 1 corresponding author, comment this line and uncomment the next one.
 
 \maketitle
 
-
 \begin{abstract}
+\section{}
 Brain research typically requires large amounts of data from different sources, and often of different nature. The use of different software tools adapted to the nature of each data source can make research work cumbersome and time consuming. It follows that data is not often used to its fullest potential thus limiting exploratory analysis. This paper presents an ancillary software tool called BRAVIZ that integrates interactive visualization with real-time statistical analyses, facilitating access to multi-facetted neuroscience data and automating many cumbersome and error-prone tasks required to explore such data. Rather than relying on abstract numerical indicators, BRAVIZ emphasizes brain images as the main object of the analysis process of individuals or groups. BRAVIZ facilitates exploration of trends or relationships to gain an integrated view of the phenomena studied, thus motivating discovery of new hypotheses. A case study is presented that incorporates brain structure and function outcomes together with different types of clinical data.
 
-\keywords{ Exploratory Analysis \and Visual Analytics \and Brain Data \and MRI \and Tractography \and Cohorts }
+\tiny
+ \keyFont{ \section{Keywords:}Exploratory Analysis,  Visual Analytics,  Brain Data,  MRI,  Tractography,  Cohorts }
 \end{abstract}
 
 \section{Motivation}
@@ -121,12 +130,6 @@ Instead of a single large monolithic application, this research takes a more dis
 
 New BRAVIZ applications are implemented based on the common library, freeing developers from thinking about technical details related to data manipulation. An additional benefit is that all applications use the same data repository, which provides a channel for data sharing. Users can create custom samples, new variables and custom geometric structures and store them in the database, where they can be read by any other BRAVIZ application. An additional communication mechanism is provided that enables applications to exchange data in real-time. In this way individual applications can be combined to solve more complex tasks.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.6\linewidth]{arquitecture.pdf}
-\end{center}
- \caption{\label{fig_arch} The BRAVIZ software architecture}
-\end{figure}
 
 As shown in Figure \ref{fig_arch}, the BRAVIZ architecture is based on the Model-View-Controller pattern, where the bottom layer (Project reader) together with the data repository constitute the model. The rest of the BRAVIZ Library makes up the controller, and each application represents a different view.
 
@@ -146,13 +149,6 @@ In addition, there was the need for performing quick statistical analysis, worki
 
 The current set of BRAVIZ applications can be divided in three categories. One set of applications measures or creates new descriptors from geometric data, one displays geometric data using other variables as context, and the third explores numerical and categorical data. This supports different stages of the exploratory analysis process, respectively, data transformation, visualization and subjects-to-group analyses. Additional modules can import and export data in spreadsheet format to interact with numerical and categorical data. All tools  are accessible from the graphical menu shown in Figure \ref{fig_menu}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.4\textwidth]{braviz_menu}
-\end{center}
- \caption{\label{fig_menu} BRAVIZ main menu }
-\end{figure}
-
 
 \subsubsection{Descriptors for geometric data}
 
@@ -169,13 +165,6 @@ The \emph{Subject Overview} application is shown in Figure \ref{fig_subject}. Th
 A small multiples display \cite{tufte_visual_1983} with views  of several subjects is useful for finding trends across a sample or for quality control to detect contaminated images. Subjects are ordered from left to right according to a chosen numerical variable and each row corresponds to a nominal variable. In the example presented in Figure \ref{fig_sample}, the two rows are men and women, and the ordering variable is the score on a math test. The bar-plot at the right shows the distribution of the variable (math test scoring) amongst the two groups (men vs. women) and is linked with the 3D views. If a more detailed view of any subject is required, the user may right click on that subject’s image to load the corresponding subject on other BRAVIZ applications.
 
 The \emph{fMRI Explorer} application from Figure \ref{fig_fmri} displays raw BOLD signals and contrast designs associated to fMRI experiments. It can also be used to compare signals at different locations or from different subjects. The \emph{Check Resgistration} application allows the user to visualize simultaneously two images, from different modalities or different subjects, in a given coordinate system, with the purpose of assessing the quality of the registration.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{quality_control_trim}
-\end{center}
- \caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
-\end{figure}
 
 
 
@@ -219,58 +208,6 @@ Analyzing a complex dataset requires a significant amount of time, and will like
 In addition to the common database where all tools read and store variables and geometric objects, BRAVIZ includes a real time communication mechanism. Through it, all applications can be coordinated to focus on the same subject (see Figure \ref{fig_imagine}), work with the same sample, or use the same set of variables. Applications may be running on different screens or even different devices; allowing researchers to get different perspectives of the data just by moving their eyes. Note that applications can block specific messages to keep the application from changing if the user prefers it. Also some actions that are likely to produce important changes, will ask the user for confirmation, and provide the option to always accept or always ignore the specific warning.
 
 Multiple users can work with the same data  which allows them to share data. In this way one user may create a new measurement and make it available for the rest of the group. Real-time communication is implemented through TCP, therefore it would be possible to link together multiple workstations, but the research team has yet to explore whether this would provide a convenient user experience.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{subj_overview_full}
-\end{center}
- \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{anova.png}
-\end{center}
- \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{initial_corr}
-\end{center}
- \caption{\label{fig_lm}A correlation with a prominent outlier}
-\end{figure}
-
-
-\begin{figure*}
-\begin{center}
-\begin{subfigure}[b]{0.18\linewidth}
-\includegraphics[width=\textwidth]{check_reg}
-\caption{\label{fig_check_reg}Check Registration}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.3\linewidth}
-\includegraphics[width=\textwidth]{correlations}
-\caption{\label{fig_correlations}Correlations}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.22\linewidth}
-\includegraphics[width=\textwidth]{roi_builder}
-\caption{ROI Builder\label{fig_roi}}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.18\linewidth}
-\includegraphics[width=\textwidth]{fmri}
-\caption{FMRI Explorer\label{fig_fmri}}
-\end{subfigure}
-\end{center}
- \caption{\label{fig_other_apps} Examples of BRAVIZ Applications}
-\end{figure*}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{imagine.jpg}
-\end{center}
- \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
-\end{figure}
-
 
 \subsection{The Braviz library}
 
@@ -350,19 +287,6 @@ The parallel visualization of the different sections of CC in all participants w
 
 Given the detection of a strong correlation between maCC volume and the length of maCC fibers ($r=0.81; p=0.0001$), we intuitively decided to correlate the interhemispheric transfer time (ITT) to maCC fibers length: Figure \ref{fig_cyril_1} shows that a strong correlation was present for PT (black circles), the longer the maCC fibers and the longer the ITT for PT and not for the terms (empty circles). This correlation was true with the outliers excluded: the three stars were participants with either cerebral palsy or X-fragile pathology which initially masked the detection of the correlation. BRAVIZ also enabled  immediate detection that the circled star was a participant with a hole in the maCC part (Figure \ref{fig_cyril_2}) which explains a similar alteration of IIT (longer than terms) with shorter CC fibers. An ancillary hypothesis is that co-morbidity (breathing problems, pulmonary infection, bleeding, pain) induced more deleterious effects after the preterm birth.
 
-\begin{figure}
-	\centering
-		\includegraphics[width=\linewidth]{cyril_plot}
-	\caption{Correlation between length of callosal fibers and ITT in the PT and term groups}
-	\label{fig_cyril_1}
-\end{figure}
-
-\begin{figure}
-	\centering
-		\includegraphics[width=\linewidth]{cc_cyril}
-	\caption{Corpus Callosum from the circled outlier in Figure \ref{fig_cyril_1}}
-	\label{fig_cyril_2}
-\end{figure}
 
 The correlation in Figure \ref{fig_cyril_1} thus shows that PT can have longer ITT in relation to the length of fibers but with the same length of maCC fibers between PT and terms: the ancillary hypothesis on that topic is that the underlying problem in PT is not the structure but the synaptic set-up and efficiency of the transcallosal networks.
 
@@ -374,20 +298,6 @@ The interactive data visualization helped detect that a transient Infanib score 
 
 The CC function is for example involved in the visuomotor control of movement. The clinical testing of visuomotor integration (VMI) was performed in all participants and the standardized score (VMI StS) was significantly lower in the PT group ($95.5 \pm 7$) than in the terms ($108.5 \pm 3.5 ; p=0.0001$). 
 BRAVIZ detected (without the outliers determined above) that the lower scores of VMI could be explained by both variables correlated with the Infanib, i.e. M1 excitability (``RMTd'' in Figure \ref{fig_cyril_4}) and the frequency of ipsilateral corticospinal responses (``Ipsifreqnd'' in Figure \ref{fig_cyril_5}). Coefficients of correlation and significance are on the corresponding figures.
-
-\begin{figure}
-	\centering
-		\includegraphics[width=0.9\linewidth]{cyricl_corr_1}
-	\caption{VMI vs M1 excitability excluding outliers}
-	\label{fig_cyril_4}
-\end{figure}
-
-\begin{figure}
-	\centering
-		\includegraphics[width=0.9\linewidth]{corr_cyril_2}
-	\caption{VMI vs ipsilateral corticospinal responses excluding outliers}
-	\label{fig_cyril_5}
-\end{figure}
 
 These figures show that the lowest scores of VMI were obtained in individuals with the highest values of motor threshold on the dominant side or TMS\_RMTd (higher TMS\_RMTd means lower M1 excitability) and with the highest occurrence of abnormal ipsilateral responses in the non dominant side (Ipsifreqnd). Most of these individuals were transient for Infanib tested at 6 months of age. Given the \emph{a priori} lack of correlation with structures volumes (especially maCC), the ancillary hypothesis is that the clinical impairment detected for VMI in PT seems to be related to maladaptive synaptic organization of the motor systems rather than lower volumes of maCC and a smaller number of maCC fibers.
 
@@ -404,25 +314,11 @@ Unfortunately the imaging protocol of the study did not include FLAIR images, wh
 
 A parallel coordinates display was used to view the volume of the ventricular system and the total white matter. The possible effects of the condition would be lower scores in motor and visual tests and general intelligence assessment; which can also be added to the display. In addition, the dataset includes a neurological motor assessment which classifies subjects in normal and not-normal.  Finally the risk factors, weight and gestational age (Ballard) at birth, were also added to obtain the display shown in Figure \ref{fig_parallel}.
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth,trim = 30mm 90mm 60mm 10mm ,clip]{parallel_coordinates_raw}
-\end{center}
- \caption{\label{fig_parallel}Parallel coordinates display configured for searching possible PVL cases}
-\end{figure}
-
 Data in the visualization can be filtered by dragging on any of the axes, in this case only subjects with high ventricular volume and low white matter volume are kept. Two of the lines from the first segment of the graph have a distinctive downwards slope, which could indicate a dilation of the ventricular system which compensates a decrease in white matter, both of them have a not normal motor neurological exam. By hovering the mouse over each line they are highlighted, which shows that both have low visual VMI scores. By right clicking on any line a context menu appears that permits switching focus to the respective subject on other BRAVIZ applications to get additional details. 
 
 Loading the subject data associated with the top line in \emph{Subject Overview} shows that he has a complicated perinatal history: C-section in emergency because of profuse bleeding (placenta previae) at 31 weeks of gestational age (i.e. a very premature infant). The  CT scan showed signs of leucoencephalopathy  and an  increased volume of the left lateral ventricle. His neurological examination showed normal psychomotor development. At 15 years, he presents an epilepsy in  treatment, severe bilateral hearing loss and abnormal bilateral vision.  
 
 The subject associated with the highlighted line in Figure \ref{fig_parallel} was also born by C-Section in emergency. It was a twin pregnancy, the mother had HELPP syndrome (malignant hypertension) and died after giving birth. The neurological examination during the first year of life is abnormal, diagnosis of cerebral palsy at the end of the first year with spastic diplegia of inferior members and hemiparesia of the right arm.  There is a severe myopia corrected with glasses. All of these symptoms can be associated with PVL; the T1 image of this subject is shown on Figure \ref{fig_subject3} surrounded by her clinical data.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{pvl_details}
-\end{center}
- \caption{\label{fig_subject3}Details of a subject with possible PVL, the left panel shows values for several variables as well as the full clinical history.}
-\end{figure}
 
 Even though the original study did not plan for assessing white matter lesions, two cases with possible existence of PVL were located, first by looking at indicator variables and then by looking at the details of the most likely candidates. This indicates that the increase in ventricle volume is not natural but probably a compensation for a lesion. The details view in the \emph{Subject Overview} application provides access to several pieces of information useful to  understand each case (variable values and annotations), and there was no need to search for additional files. 
 
@@ -460,14 +356,131 @@ Currently there is a trend towards moving data storage and processing to dedicat
 
 As the tendency of collecting data in an open fashion and making it available to the general community grows, visual exploratory analysis tools like BRAVIZ  will become increasingly important. Acquiring data will no longer be a bottleneck for research, and a larger effort can be invested in analyzing existing data. This will lead to an increase in productivity of scientists everywhere, as well as a more optimal use of collected data, which will ultimately increase the speed at which knowledge is generated.
 
-\begin{acknowledgements}
+\section*{Acknowledgments}
 
 This work was made possible by the Kangaroo Foundation, that generously provided a rich dataset, and whose experts were always willing to test prototypes and provide valuable feedback. The project also received important support from Colciencias, Universidad de los Andes, Iowa State University and CHUL.
 
-\end{acknowledgements}
-
-\bibliographystyle{spmpsci} 
+\bibliographystyle{frontiersinHLTH&FPHY}
 \bibliography{zotero}
 
+\section*{Figures}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\linewidth]{arquitecture.pdf}
+\end{center}
+ \caption{\label{fig_arch} The BRAVIZ software architecture}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{braviz_menu}
+\end{center}
+ \caption{\label{fig_menu} BRAVIZ main menu }
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{quality_control_trim}
+\end{center}
+ \caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{subj_overview_full}
+\end{center}
+ \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{anova.png}
+\end{center}
+ \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{initial_corr}
+\end{center}
+ \caption{\label{fig_lm}A correlation with a prominent outlier}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\begin{subfigure}[b]{0.18\linewidth}
+\includegraphics[width=\textwidth]{check_reg}
+\caption{\label{fig_check_reg}Check Registration}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.3\linewidth}
+\includegraphics[width=\textwidth]{correlations}
+\caption{\label{fig_correlations}Correlations}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.22\linewidth}
+\includegraphics[width=\textwidth]{roi_builder}
+\caption{ROI Builder\label{fig_roi}}
+\end{subfigure}\hfill
+\begin{subfigure}[b]{0.18\linewidth}
+\includegraphics[width=\textwidth]{fmri}
+\caption{FMRI Explorer\label{fig_fmri}}
+\end{subfigure}
+\end{center}
+ \caption{\label{fig_other_apps} Examples of BRAVIZ Applications}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{imagine.jpg}
+\end{center}
+ \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+		\includegraphics[width=\linewidth]{cyril_plot}
+	\caption{Correlation between length of callosal fibers and ITT in the PT and term groups}
+	\label{fig_cyril_1}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=\linewidth]{cc_cyril}
+	\caption{Corpus Callosum from the circled outlier in Figure \ref{fig_cyril_1}}
+	\label{fig_cyril_2}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.9\linewidth]{cyricl_corr_1}
+	\caption{VMI vs M1 excitability excluding outliers}
+	\label{fig_cyril_4}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[width=0.9\linewidth]{corr_cyril_2}
+	\caption{VMI vs ipsilateral corticospinal responses excluding outliers}
+	\label{fig_cyril_5}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth,trim = 30mm 90mm 60mm 10mm ,clip]{parallel_coordinates_raw}
+\end{center}
+ \caption{\label{fig_parallel}Parallel coordinates display configured for searching possible PVL cases}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{pvl_details}
+\end{center}
+ \caption{\label{fig_subject3}Details of a subject with possible PVL, the left panel shows values for several variables as well as the full clinical history.}
+\end{figure}
 
 \end{document}
