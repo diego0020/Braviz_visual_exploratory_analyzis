@@ -4,6 +4,7 @@
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
 
+
 %\usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{letltxmacro}
@@ -40,7 +41,7 @@
 \usepackage{mathptmx}
 
 \hyphenation{da-ta-base da-ta-bases ex-pla-na-to-ry ex-plo-ra-to-ry BRA-VIZ}
-
+\linenumbers
 
 \def\keyFont{\fontsize{8}{11}\helveticabold }
 \def\firstAuthorLast{Angulo {et~al.}} %use et al only if is more than 1 author
@@ -62,7 +63,7 @@ $^{4}$Kangaroo Foundation, Bogota, Colombia }
 \onecolumn
 \firstpage{1}
 	
-\title[Braviz]{A Multi-facetted Visual Analytics Tool for Exploratory Analysis of Human Brain and Function Datasets} 
+\title[Braviz: Visual Analysis of Brain Data]{A Multi-facetted Visual Analytics Tool for Exploratory Analysis of Human Brain and Function Datasets} 
 
 \author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
@@ -77,7 +78,7 @@ $^{4}$Kangaroo Foundation, Bogota, Colombia }
 Brain research typically requires large amounts of data from different sources, and often of different nature. The use of different software tools adapted to the nature of each data source can make research work cumbersome and time consuming. It follows that data is not often used to its fullest potential thus limiting exploratory analysis. This paper presents an ancillary software tool called BRAVIZ that integrates interactive visualization with real-time statistical analyses, facilitating access to multi-facetted neuroscience data and automating many cumbersome and error-prone tasks required to explore such data. Rather than relying on abstract numerical indicators, BRAVIZ emphasizes brain images as the main object of the analysis process of individuals or groups. BRAVIZ facilitates exploration of trends or relationships to gain an integrated view of the phenomena studied, thus motivating discovery of new hypotheses. A case study is presented that incorporates brain structure and function outcomes together with different types of clinical data.
 
 \tiny
- \keyFont{ \section{Keywords:}Exploratory Analysis,  Visual Analytics,  Brain Data,  MRI,  Tractography,  Cohorts }
+ \keyFont{ \section{Keywords:}Exploratory Analysis,  Visual Analytics,  fMRI,  MRI,  Tractography,  Cohort Studies }
 \end{abstract}
 
 \section{Motivation}
@@ -411,19 +412,20 @@ This work was made possible by the Kangaroo Foundation, that generously provided
 
 \begin{figure}
 \begin{center}
-\begin{subfigure}[b]{0.18\linewidth}
+\begin{subfigure}[b]{0.48\linewidth}
 \includegraphics[width=\textwidth]{check_reg}
 \caption{\label{fig_check_reg}Check Registration}
 \end{subfigure}\hfill
-\begin{subfigure}[b]{0.3\linewidth}
+\begin{subfigure}[b]{0.48\linewidth}
 \includegraphics[width=\textwidth]{correlations}
 \caption{\label{fig_correlations}Correlations}
-\end{subfigure}\hfill
-\begin{subfigure}[b]{0.22\linewidth}
+\end{subfigure}
+
+\begin{subfigure}[b]{0.48\linewidth}
 \includegraphics[width=\textwidth]{roi_builder}
 \caption{ROI Builder\label{fig_roi}}
 \end{subfigure}\hfill
-\begin{subfigure}[b]{0.18\linewidth}
+\begin{subfigure}[b]{0.48\linewidth}
 \includegraphics[width=\textwidth]{fmri}
 \caption{FMRI Explorer\label{fig_fmri}}
 \end{subfigure}
