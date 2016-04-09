@@ -130,3 +130,5 @@ sympy-plots-for-*.tex/
 
 braviz_visual_analysis.pdf
 *.docx
+
+!cover_letter.docx

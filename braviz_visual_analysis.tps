@@ -11,14 +11,14 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1597
-NormalPos.bottom=484
+NormalPos.right=1561
+NormalPos.bottom=334
 Class=LaTeXView
 Document=braviz_visual_analysis.tex
 
 [Frame0_View0,0]
-TopLine=7
-Cursor=2215
+TopLine=75
+Cursor=2894
 
 [Frame1]
 Flags=0
@@ -29,8 +29,8 @@ MaxPos.x=-1
 MaxPos.y=-1
 NormalPos.left=4
 NormalPos.top=26
-NormalPos.right=1597
-NormalPos.bottom=484
+NormalPos.right=1561
+NormalPos.bottom=334
 Class=LaTeXView
 Document=..\..\..\..\..\texlive\2015\texmf-dist\tex\latex\caption\caption.sty
 
