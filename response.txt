@@ -1,0 +1,27 @@
+Response
+
+About figures:
+
+Architecture: rewrote architecture section, with appropriate links to further sections which provide additional details
+
+Menu: Changed phrasing to indicate that users should clicl buttons to access applications.
+
+Changed description in text of the sample overview app to reflect that there are three rows
+
+Changed the order of figures 3 and 4
+
+ANOVA: Provided a deeper explanation of the UI and the mechanisms for performing the calculation.
+
+LM: Added an explanation of the data being analyzed in the example and reference to the case studies.
+
+"You explained examples of functions, however it wasn't clear the relation of these analysis and importance of integration in your software."
+?????????????
+- The case studies show how tools can be used together to gain insights from multiple views.
+
+Figure 8 is mentioned twice on the main text, in the "Integrating Tools" subsection and in "Conclussions and Future Work". 
+
+Figure 9: 
+
+Figures 11, 12: Explained that empty circles are excluded outliers.
+
+Parallel: Explained that gray lines represent subjects that don't match the filters.
