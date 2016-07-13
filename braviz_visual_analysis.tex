@@ -41,7 +41,7 @@
 \usepackage{mathptmx}
 
 \hyphenation{da-ta-base da-ta-bases ex-pla-na-to-ry ex-plo-ra-to-ry BRA-VIZ}
-\linenumbers
+%\linenumbers
 
 \def\keyFont{\fontsize{8}{11}\helveticabold }
 \def\firstAuthorLast{Angulo {et~al.}} %use et al only if is more than 1 author
@@ -173,7 +173,7 @@ Variables are selected from the database, which additionally stores the type of 
 
 After fitting the model, the main plot will show diagnostics (distribution of residuals and a scatter plot of residuals vs. fitted values) for the validation of the ANOVA hypotheses (noise normally distributed and with constant variance) and the table at the bottom right shows the resulting statistics. The application can also show box-plots and scatter-plots that provide additional insights on the relation between regressors (nominal and numeric variables and interaction terms) and outcomes. Individual points in these plots can be identified by positioning the mouse over them. Additionally, by right clicking the mouse, the associated individual subject data can be loaded into other BRAVIZ applications to get supplemental information. This can be especially useful for instance to interpret outliers.
 
-Figure \ref{fig_lm} shows an alternative analysis application (\emph{Linear Model}) which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables representing levels of nominal variables and interaction terms). The application provides a similar interface and functions in the same way as the ANOVA application. The example from the figure shows a linear regression between the average length of fibers going through the posterior section of the corpus callosum and the results of a visual intelligence test (see case studies in section \ref{case_studies}).  
+Figure \ref{fig_cyril_1} shows an alternative analysis application (\emph{Linear Model}) which fits standard linear models and shows the effect of each regressor (numerical variables, dummy variables representing levels of nominal variables and interaction terms). The application provides a similar interface and functions in the same way as the ANOVA application. The example from the figure shows a linear regression between the average length of fibers going through the posterior section of the corpus callosum and the results of a visual intelligence test (see case studies in section \ref{case_studies}).  
 
 The \emph{Correlations} application shown in figure \ref{fig_correlations} displays a list of variables, a correlation matrix of selected variables, and scatter plots of selected correlations. Points in the plot can be queried and right clicked. Additionally, they can be temporarily eliminated from the analysis to see the impact they have on the correlation that is currently tested. 
 
@@ -398,13 +398,6 @@ This work was made possible by the Kangaroo Foundation, that generously provided
 \includegraphics[width=\linewidth]{anova.png}
 \end{center}
  \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{initial_corr}
-\end{center}
- \caption{\label{fig_lm}A correlation with a prominent outlier}
 \end{figure}
 
 
