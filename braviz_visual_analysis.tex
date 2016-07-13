@@ -177,7 +177,7 @@ Figure \ref{fig_cyril_1} shows an alternative analysis application (\emph{Linear
 
 The \emph{Correlations} application shown in figure \ref{fig_correlations} displays a list of variables, a correlation matrix of selected variables, and scatter plots of selected correlations. Points in the plot can be queried and right clicked. Additionally, they can be temporarily eliminated from the analysis to see the impact they have on the correlation that is currently tested. 
 
-The \emph{Parallel Coordinates} display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables . This functionality is exemplified in the second case study presented thereafter (see Figure \ref{fig_parallel} ). Each vertical axis represents a variable, and each line is a subject. Users can interactively apply filters to each axis, in order to see how changes in one variable affect other values, and to understand relations involving several variables. In the figure, gray lines represent subjects excluded by the filters while color lines are those subjects that match the filters.
+The \emph{Parallel Coordinates} display from figure \ref{fig_parallel} provides another way of analyzing relations involving several variables . This functionality is exemplified in the second case study presented thereafter (see Section \ref{case_studies} ). Each vertical axis represents a variable, and each line is a subject. Users can interactively apply filters to each axis, in order to see how changes in one variable affect other values, and to understand relations involving several variables. In the figure, gray lines represent subjects excluded by the filters while color lines are those subjects that match the filters.
 
 \subsection{Global Features}
 
@@ -381,28 +381,6 @@ This work was made possible by the Kangaroo Foundation, that generously provided
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\linewidth]{subj_overview_full}
-\end{center}
- \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{quality_control_trim}
-\end{center}
- \caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth]{anova.png}
-\end{center}
- \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
-\end{figure}
-
-
-\begin{figure}
-\begin{center}
 \begin{subfigure}[b]{0.48\linewidth}
 \includegraphics[width=\textwidth]{check_reg}
 \caption{\label{fig_check_reg}Check Registration}
@@ -426,11 +404,24 @@ This work was made possible by the Kangaroo Foundation, that generously provided
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\linewidth]{imagine.jpg}
+\includegraphics[width=\linewidth]{subj_overview_full}
 \end{center}
- \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
+ \caption{\label{fig_subject}Main interface of the subject overview application: At the bottom of the render some variables about the subject provide context}
 \end{figure}
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{quality_control_trim}
+\end{center}
+ \caption{\label{fig_sample} Quality control on the corpus callosum fibers from the whole sample}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{anova.png}
+\end{center}
+ \caption{\label{fig_anova}An application for performing ANOVA analyses using the data in the BRAVIZ database.}
+\end{figure}
 
 \begin{figure}
 	\centering
@@ -438,6 +429,22 @@ This work was made possible by the Kangaroo Foundation, that generously provided
 	\caption{(a) Scatter plot and linear fit between the Ccma fibers and interhemispheric transfer timer, (b) same plot after removing four outliers, (c) corpus callosum of the circled outlier of plot (a).}
 	\label{fig_cyril_1}
 \end{figure}
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth,trim = 30mm 90mm 60mm 10mm ,clip]{parallel_coordinates_raw}
+\end{center}
+ \caption{\label{fig_parallel}Parallel coordinates display configured for searching possible PVL cases, lines that don't match the filters on each axis are shown in gray}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\linewidth]{imagine.jpg}
+\end{center}
+ \caption{\label{fig_imagine} An example of BRAVIZ running on a large display in a collaborative setting.}
+\end{figure}
+
 
 
 \begin{figure}
@@ -454,12 +461,6 @@ This work was made possible by the Kangaroo Foundation, that generously provided
 	\label{fig_cyril_5}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\linewidth,trim = 30mm 90mm 60mm 10mm ,clip]{parallel_coordinates_raw}
-\end{center}
- \caption{\label{fig_parallel}Parallel coordinates display configured for searching possible PVL cases, lines that don't match the filters on each axis are shown in gray}
-\end{figure}
 
 
 \begin{figure}
